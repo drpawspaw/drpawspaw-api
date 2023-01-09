@@ -8,98 +8,53 @@ import transformers
 from nltk.corpus import stopwords
 import tensorflow as tf
 import nltk
-
-# Download required NLTK libraries and files
-nltk.download('wordnet')  # get synonyms
-nltk.download('omw-1.4')
-nltk.download('stopwords')  # stop words
-nltk.download('punkt')  # tokenizer
-
-# Load ontology graph
-g = Graph()
-g.parse("/data/adso.owl")
-
-# Named entity recognition model
-tokenizer = AutoTokenizer.from_pretrained("d4data/biomedical-ner-all")
-bme = AutoModelForTokenClassification.from_pretrained("d4data/biomedical-ner-all")
-ner = pipeline("ner", model=bme, tokenizer=tokenizer, aggregation_strategy="simple")
-
-# Text similarity model
-tsm = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
-
-# Semantic similarity model
-ssm = from_pretrained_keras("keras-io/bert-semantic-similarity")
+from utils import get_ref, is_exist_es, is_exist_ss, get_text_from_uri, build_query
+from model import g, ner, ssm, tsm
 
 word_join_character = " "  # Use to join the words in an array
 stop_words = stopwords.words("english")
 labels = ["negative_similarity", "positive_similarity", "neutral"]
 
-# Expand the all entities
+# List of synonyms and symptoms as one single object
 expanded_symp = []
 
 # List of symptoms and their synonyms
 symp_syn = []
 
-
-# Get the URIRef for given keyword
-def get_ref(keyword):
-    return URIRef("https://ontology.drpawspaw.com/" + keyword)
-
-
-# Check the keyword already exist or not in collection
-def is_exist_ss(keyword):
-    for _, k, _ in symp_syn:
-        if k == keyword:
-            return True
-
-
-# Get the entity 'text' from the URIRef
-def get_text_from_uri(uri):
-    for s, p, o in g:
-        if s == uri and p == URIRef("https://ontology.drpawspaw.com/text"):
-            return o
-
-
-# Append all the symptoms and their synonyms
-for s, p, o in g:  # subject, predicate, object
-    # filter synonyms
-    if p == get_ref("hasSymptom"):
-        try:
-            x = get_text_from_uri(o).toPython()
-        except:
-            continue
-        curr_symp_syn = []
-        for s1, p1, o1 in g:
-            # filter synonym for above "o" entity
-            if s1 == o and p1 == get_ref("hasSynonym"):
-                try:
-                    y = get_text_from_uri(o1).toPython()
-                    curr_symp_syn.append(y)
-                except:
-                    continue
-        # validate to add only one entry
-        if not is_exist_ss(x):
+def init_cfg():
+    # Append all the symptoms and their synonyms
+    for s, p, o in g:  # subject, predicate, object
+        # filter synonyms
+        if p == get_ref("hasSymptom"):
             try:
-                idx = o.toPython()
-                symp_syn.append((idx, x, curr_symp_syn))
+                x = get_text_from_uri(o).toPython()
             except:
                 continue
+            curr_symp_syn = []
+            for s1, p1, o1 in g:
+                # filter synonym for above "o" entity
+                if s1 == o and p1 == get_ref("hasSynonym"):
+                    try:
+                        y = get_text_from_uri(o1).toPython()
+                        curr_symp_syn.append(y)
+                    except:
+                        continue
+            # validate to add only one entry
+            if not is_exist_ss(x, symp_syn):
+                try:
+                    idx = o.toPython()
+                    symp_syn.append((idx, x, curr_symp_syn))
+                except:
+                    continue
+    # Expand the entities with synonyms and URIs
+    for idx, word, syns in symp_syn:
+        for s in syns:
+            if not is_exist_es(s, expanded_symp):
+                expanded_symp.append((idx, s))
+        if not is_exist_es(word, expanded_symp):
+            expanded_symp.append((idx, word))
 
-
-def is_exist_es(keyword):
-    for _, entity in expanded_symp:
-        if keyword == entity:
-            return True
-
-
-for idx, word, syns in symp_syn:
-    for s in syns:
-        if not is_exist_es(s):
-            expanded_symp.append((idx, s))
-    if not is_exist_es(word):
-        expanded_symp.append((idx, word))
-
-
+# Entity linker component - This function accepts the sentence as string and return the predicted values
 def entity_linker(sentence):
     etq = []  # Entities to query
     annotate_tokens = ner(word_join_character.join(
@@ -112,23 +67,6 @@ def entity_linker(sentence):
         etq.append(get_highest_ctx_similarity(e, current_entity_candidates))
     current_query = build_query(list(map(lambda x: x[0][0], etq)))
     return [rq for rq in g.query(current_query)]
-
-
-# This function return SPARQL query, that able to get the disease from symptoms
-def build_query(symptoms):
-    return """
-    PREFIX adso: <https://ontology.drpawspaw.com/>
-    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-    SELECT ?diseaseName
-    WHERE {{
-        {sym_query}
-        ?diseaseUri adso:text ?diseaseName .
-    }}
-    """.format(sym_query="\n".join(
-        list(
-            map(lambda e: "?diseaseUri adso:hasSymptom adso:{uri} .".format(uri=e),
-                list(map(lambda e: e.split("/")[3], symptoms))))))
-
 
 # "get_highest_ctx_similarity" function return the highest context similarity as tuple (URI, Word, ctx_similarity)
 def get_highest_ctx_similarity(entity, nodes):
@@ -163,8 +101,8 @@ def get_similarity(idx, word, ne):  # Return a tuple, contain URI, node, similar
     embedding_2 = tsm.encode(word, convert_to_tensor=True)
     return (idx, word, util.pytorch_cos_sim(embedding_1, embedding_2))
 
-
-# Help utils for semantic similarity model
+# BertSemanticDataGenerator to calculate the similarity between two words
+# In here, we are taking the context similarity not the word/text similarity
 class BertSemanticDataGenerator(tf.keras.utils.Sequence):
     """Generates batches of data."""
 
@@ -223,4 +161,5 @@ class BertSemanticDataGenerator(tf.keras.utils.Sequence):
             return [input_ids, attention_masks, token_type_ids]
 
 # TODO: (Remove) Tryout Implementation
+init_cfg()
 print("Prediction: ", entity_linker("My dog has been vomiting and has diarrhea"))
