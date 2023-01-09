@@ -1,0 +1,1680 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="https://ontology.drpawspaw.com/"
+     xml:base="https://ontology.drpawspaw.com/"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:ontology="https://ontology.drpawspaw.com/">
+    <owl:Ontology rdf:about="https://ontology.drpawspaw.com/">
+        <owl:versionIRI rdf:resource="https://ontology.drpawspaw.com/v1.0.0/"/>
+        <rdfs:comment xml:lang="en">Animal disease symptoms ontology</rdfs:comment>
+        <rdfs:isDefinedBy xml:lang="en">Viraj Lakshitha Bandara</rdfs:isDefinedBy>
+        <owl:versionInfo xml:lang="en">v1.0.0</owl:versionInfo>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- https://ontology.drpawspaw.com/hasDisease -->
+
+    <owl:ObjectProperty rdf:about="https://ontology.drpawspaw.com/hasDisease">
+        <rdfs:domain>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://ontology.drpawspaw.com/hasDisease"/>
+                <owl:someValuesFrom rdf:resource="https://ontology.drpawspaw.com/animal"/>
+            </owl:Restriction>
+        </rdfs:domain>
+        <rdfs:range>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://ontology.drpawspaw.com/hasDisease"/>
+                <owl:someValuesFrom rdf:resource="https://ontology.drpawspaw.com/disease"/>
+            </owl:Restriction>
+        </rdfs:range>
+        <rdfs:comment xml:lang="en">Use to make the connection between Animal and Disease</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/hasSymptom -->
+
+    <owl:ObjectProperty rdf:about="https://ontology.drpawspaw.com/hasSymptom">
+        <rdfs:domain>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://ontology.drpawspaw.com/hasDisease"/>
+                <owl:someValuesFrom rdf:resource="https://ontology.drpawspaw.com/disease"/>
+            </owl:Restriction>
+        </rdfs:domain>
+        <rdfs:range>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://ontology.drpawspaw.com/hasDisease"/>
+                <owl:someValuesFrom rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+            </owl:Restriction>
+        </rdfs:range>
+        <rdfs:comment xml:lang="en">Use to make the connection between Disease and Symptom</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/hasSynonym -->
+
+    <owl:ObjectProperty rdf:about="https://ontology.drpawspaw.com/hasSynonym">
+        <rdfs:domain>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://ontology.drpawspaw.com/hasSymptom"/>
+                <owl:someValuesFrom rdf:resource="https://ontology.drpawspaw.com/disease"/>
+            </owl:Restriction>
+        </rdfs:domain>
+        <rdfs:domain>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://ontology.drpawspaw.com/hasSymptom"/>
+                <owl:someValuesFrom rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+            </owl:Restriction>
+        </rdfs:domain>
+        <rdfs:range>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://ontology.drpawspaw.com/hasDisease"/>
+                <owl:someValuesFrom rdf:resource="https://ontology.drpawspaw.com/disease_synonym"/>
+            </owl:Restriction>
+        </rdfs:range>
+        <rdfs:range>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="https://ontology.drpawspaw.com/hasDisease"/>
+                <owl:someValuesFrom rdf:resource="https://ontology.drpawspaw.com/symptom_synonym"/>
+            </owl:Restriction>
+        </rdfs:range>
+        <rdfs:comment xml:lang="en">Use to make a connection between [Disease and Synonym] or [Disease and Synonym]</rdfs:comment>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000001 -->
+
+    <owl:DatatypeProperty rdf:about="https://ontology.drpawspaw.com/ADSO0000000001">
+        <rdfs:domain rdf:resource="https://ontology.drpawspaw.com/animal"/>
+        <rdfs:domain rdf:resource="https://ontology.drpawspaw.com/disease"/>
+        <rdfs:domain rdf:resource="https://ontology.drpawspaw.com/disease_synonym"/>
+        <rdfs:domain rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <rdfs:domain rdf:resource="https://ontology.drpawspaw.com/symptom_synonym"/>
+        <rdfs:label xml:lang="en">id</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/text -->
+
+    <owl:DatatypeProperty rdf:about="https://ontology.drpawspaw.com/text">
+        <rdfs:domain rdf:resource="https://ontology.drpawspaw.com/animal"/>
+        <rdfs:domain rdf:resource="https://ontology.drpawspaw.com/disease_synonym"/>
+        <rdfs:domain rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <rdfs:domain rdf:resource="https://ontology.drpawspaw.com/symptom_synonym"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:comment xml:lang="en">Use to add any text regarding the entity</rdfs:comment>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- https://ontology.drpawspaw.com/animal -->
+
+    <owl:Class rdf:about="https://ontology.drpawspaw.com/animal">
+        <rdfs:comment xml:lang="en">This class defines the Animals (Eg: Dog, Cat)</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/disease -->
+
+    <owl:Class rdf:about="https://ontology.drpawspaw.com/disease">
+        <rdfs:comment xml:lang="en">This class defines the animal disease (Eg: Parvo)</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/disease_synonym -->
+
+    <owl:Class rdf:about="https://ontology.drpawspaw.com/disease_synonym">
+        <rdfs:subClassOf rdf:resource="https://ontology.drpawspaw.com/disease"/>
+        <rdfs:comment xml:lang="en">This class defines the synonyms for the disease (Eg: Rockey Mountain Spotted Fever -&gt; Tick Fever)</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/symptom -->
+
+    <owl:Class rdf:about="https://ontology.drpawspaw.com/symptom">
+        <rdfs:subClassOf rdf:resource="https://ontology.drpawspaw.com/disease"/>
+        <rdfs:comment xml:lang="en">This class defines the disease symptoms</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/symptom_synonym -->
+
+    <owl:Class rdf:about="https://ontology.drpawspaw.com/symptom_synonym">
+        <rdfs:subClassOf rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <rdfs:comment xml:lang="en">This class defines the synonyms for symptoms (Eg: Fever -&gt; High Body Temparature)</rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000000 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000000">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Encephalitis</text>
+        <rdfs:label xml:lang="en">encephalitis</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000002 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000002">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/animal"/>
+        <hasDisease rdf:resource="https://ontology.drpawspaw.com/ADSO0000000003"/>
+        <hasDisease rdf:resource="https://ontology.drpawspaw.com/ADSO0000000004"/>
+        <hasDisease rdf:resource="https://ontology.drpawspaw.com/ADSO0000000032"/>
+        <hasDisease rdf:resource="https://ontology.drpawspaw.com/ADSO0000000083"/>
+        <hasDisease rdf:resource="https://ontology.drpawspaw.com/ADSO0000000085"/>
+        <hasDisease rdf:resource="https://ontology.drpawspaw.com/ADSO0000000086"/>
+        <hasDisease rdf:resource="https://ontology.drpawspaw.com/ADSO0000000087"/>
+        <hasDisease rdf:resource="https://ontology.drpawspaw.com/ADSO0000000088"/>
+        <hasDisease rdf:resource="https://ontology.drpawspaw.com/ADSO0000000089"/>
+        <hasDisease rdf:resource="https://ontology.drpawspaw.com/ADSO0000000090"/>
+        <text xml:lang="en">Dog</text>
+        <rdfs:label xml:lang="en">dog</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000003 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000003">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/disease"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000005"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000006"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000007"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000008"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000009"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000014"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000015"/>
+        <hasSynonym rdf:resource="https://ontology.drpawspaw.com/ADSO0000000054"/>
+        <text xml:lang="en">Babesiosis</text>
+        <rdfs:label xml:lang="en">babesiosis</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000004 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000004">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/disease"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000005"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000008"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000016"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000017"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000018"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000020"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000021"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000022"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000023"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000024"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000025"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000053"/>
+        <hasSynonym rdf:resource="https://ontology.drpawspaw.com/ADSO0000000058"/>
+        <hasSynonym rdf:resource="https://ontology.drpawspaw.com/ADSO0000000077"/>
+        <text xml:lang="en">Parvo</text>
+        <rdfs:label xml:lang="en">parvo</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000005 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000005">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Fever</text>
+        <rdfs:label xml:lang="en">fever</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000006 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000006">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Inflammation of Joints</text>
+        <rdfs:label xml:lang="en">inflammation_of_joints</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000007 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000007">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">coughing</text>
+        <rdfs:label xml:lang="en">coughing</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000008 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000008">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Vomiting</text>
+        <rdfs:label xml:lang="en">vomiting</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000009 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000009">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Diarrhea</text>
+        <rdfs:label xml:lang="en">diarrhea</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000010 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000010">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom_synonym"/>
+        <text xml:lang="en">Uncomfortable</text>
+        <rdfs:label xml:lang="en">uncomfortable</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000011 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000011">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Enlarging Lymph Nodes</text>
+        <rdfs:label xml:lang="en">enlarging_lymph_nodes</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000012 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000012">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Stroke</text>
+        <rdfs:label xml:lang="en">stroke</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000013 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000013">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Facial Swelling</text>
+        <rdfs:label xml:lang="en">facial_swelling</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000014 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000014">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Limb Swelling</text>
+        <rdfs:label xml:lang="en">limb_swelling</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000015 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000015">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <hasSynonym rdf:resource="https://ontology.drpawspaw.com/ADSO0000000124"/>
+        <hasSynonym rdf:resource="https://ontology.drpawspaw.com/ADSO0000000125"/>
+        <text xml:lang="en">Abnormal Pain</text>
+        <rdfs:label xml:lang="en">abnormal_pain</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000016 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000016">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Blood Diarrhea</text>
+        <rdfs:label xml:lang="en">blood_diarrhea</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000017 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000017">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <hasSynonym rdf:resource="https://ontology.drpawspaw.com/ADSO0000000105"/>
+        <text xml:lang="en">Lethargy</text>
+        <rdfs:label xml:lang="en">lethargy</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000018 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000018">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Anorexia</text>
+        <rdfs:label xml:lang="en">anorexia</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000019 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000019">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Brain Cancer</text>
+        <rdfs:label xml:lang="en">brain_cancer</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000020 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000020">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Dehydration</text>
+        <rdfs:label xml:lang="en">dehydration</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000021 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000021">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Red Inflamed Tissue</text>
+        <rdfs:label xml:lang="en">red_inflamed_tissue</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000022 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000022">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Rapid Heart Beat</text>
+        <rdfs:label xml:lang="en">rapid_heart_beat</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000023 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000023">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Pain</text>
+        <rdfs:label xml:lang="en">pain</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000024 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000024">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <hasSynonym rdf:resource="https://ontology.drpawspaw.com/ADSO0000000010"/>
+        <text xml:lang="en">Discomfort</text>
+        <rdfs:label xml:lang="en">discomfort</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000025 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000025">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Low Body Temperature</text>
+        <rdfs:label xml:lang="en">low_body_temperature</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000026 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000026">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <hasSynonym rdf:resource="https://ontology.drpawspaw.com/ADSO0000000103"/>
+        <hasSynonym rdf:resource="https://ontology.drpawspaw.com/ADSO0000000104"/>
+        <text xml:lang="en">Nasal Discharge</text>
+        <rdfs:label xml:lang="en">nasal_discharge</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000027 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000027">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Eye Discharge</text>
+        <rdfs:label xml:lang="en">eye_discharge</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000028 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000028">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Sneezing</text>
+        <rdfs:label xml:lang="en">sneezing</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000029 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000029">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <hasSynonym rdf:resource="https://ontology.drpawspaw.com/ADSO0000000112"/>
+        <text xml:lang="en">Scratching Ears</text>
+        <rdfs:label xml:lang="en">scratching_ears</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000030 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000030">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <hasSynonym rdf:resource="https://ontology.drpawspaw.com/ADSO0000000126"/>
+        <text xml:lang="en">Loss of Appetite</text>
+        <rdfs:label xml:lang="en">loss_of_appetite</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000031 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000031">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Thickening of nose and foot pads</text>
+        <rdfs:label xml:lang="en">thickening_of_nose_and_foot_pads</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000032 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000032">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Pneumonia</text>
+        <rdfs:label xml:lang="en">pneumonia</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000033 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000033">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Skin Sores</text>
+        <rdfs:label xml:lang="en">skin_sores</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000034 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000034">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Muscle Twitching</text>
+        <rdfs:label xml:lang="en">muscle_twitching</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000035 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000035">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Chewing gum fits</text>
+        <rdfs:label xml:lang="en">chewing_gum_fits</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000036 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000036">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Excessive Saliva</text>
+        <rdfs:label xml:lang="en">excessive_saliva</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000037 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000037">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <hasSynonym rdf:resource="https://ontology.drpawspaw.com/ADSO0000000111"/>
+        <text xml:lang="en">Head Tilt</text>
+        <rdfs:label xml:lang="en">head_tilt</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000038 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000038">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Involuntary Eye Movements</text>
+        <rdfs:label xml:lang="en">involuntary_eye_movements</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000039 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000039">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Paralysis</text>
+        <rdfs:label xml:lang="en">paralysis</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000040 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000040">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Seizures</text>
+        <rdfs:label xml:lang="en">seizures</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000041 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000041">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <hasSynonym rdf:resource="https://ontology.drpawspaw.com/ADSO0000000122"/>
+        <hasSynonym rdf:resource="https://ontology.drpawspaw.com/ADSO0000000123"/>
+        <text xml:lang="en">High Fever</text>
+        <rdfs:label xml:lang="en">high_fever</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000042 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000042">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Running Nose</text>
+        <rdfs:label xml:lang="en">running_nose</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000043 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000043">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Difficulty Exercising</text>
+        <rdfs:label xml:lang="en">difficulty_exercising</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000044 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000044">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Itchiness</text>
+        <rdfs:label xml:lang="en">itchiness</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000045 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000045">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Weight Loss</text>
+        <rdfs:label xml:lang="en">weight_loss</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000046 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000046">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Abnormal Movement of Limbs</text>
+        <rdfs:label xml:lang="en">abnormal_movements_of_limb</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000047 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000047">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Holding the Leg up</text>
+        <rdfs:label xml:lang="en">holding_the_leg_up</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000048 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000048">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Swelling Limbs</text>
+        <rdfs:label xml:lang="en">swelling_limb</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000049 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000049">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Scrab Eyes</text>
+        <rdfs:label xml:lang="en">scrab_eyes</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000050 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000050">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Whining</text>
+        <rdfs:label xml:lang="en">whining</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000051 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000051">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Inability to Walk</text>
+        <rdfs:label xml:lang="en">inability_to_walk</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000052 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000052">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Severe Lameness</text>
+        <rdfs:label xml:lang="en">severe_lameness</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000053 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000053">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <hasSynonym rdf:resource="https://ontology.drpawspaw.com/ADSO0000000106"/>
+        <text xml:lang="en">Severe Weight Loss</text>
+        <rdfs:label xml:lang="en">severe_weight_loss</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000054 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000054">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/disease_synonym"/>
+        <text xml:lang="en">Babesia Infection</text>
+        <rdfs:label xml:lang="en">babesia_infection</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000055 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000055">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Bruising</text>
+        <rdfs:label xml:lang="en">bruising</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000056 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000056">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Thirsty</text>
+        <rdfs:label xml:lang="en">thirsty</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000057 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000057">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Nausea</text>
+        <rdfs:label xml:lang="en">nausea</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000058 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000058">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/disease_synonym"/>
+        <text xml:lang="en">Parvo Virus Infectious</text>
+        <rdfs:label xml:lang="en">parvo_virus_infectious</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000059 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000059">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Bloated Tummy</text>
+        <rdfs:label xml:lang="en">bloated_tummy</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000060 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000060">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Frequent Paning</text>
+        <rdfs:label xml:lang="en">frequent_panting</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000061 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000061">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Fatigue</text>
+        <rdfs:label xml:lang="en">fatigue</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000062 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000062">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Appetite Changes</text>
+        <rdfs:label xml:lang="en">appetite_changes</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000063 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000063">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <hasSynonym rdf:resource="https://ontology.drpawspaw.com/ADSO0000000115"/>
+        <text xml:lang="en">Alopecia</text>
+        <rdfs:label xml:lang="en">alopecia</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000064 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000064">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <hasSynonym rdf:resource="https://ontology.drpawspaw.com/ADSO0000000110"/>
+        <text xml:lang="en">Increase Urination</text>
+        <rdfs:label xml:lang="en">increase_urination</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000065 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000065">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Unusual Collapse</text>
+        <rdfs:label xml:lang="en">unusual_collapse</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000066 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000066">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Eating Poison</text>
+        <rdfs:label xml:lang="en">eating_poison</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000067 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000067">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Liver Disease</text>
+        <rdfs:label xml:lang="en">liver_disease</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000068 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000068">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Low Blood Sugar</text>
+        <rdfs:label xml:lang="en">low_blood_sugar</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000069 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000069">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">High Blood Sugar</text>
+        <rdfs:label xml:lang="en">high_blood_sugar</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000070 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000070">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Kidney Disease</text>
+        <rdfs:label xml:lang="en">kidney_disease</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000071 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000071">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Electrolyte Problem</text>
+        <rdfs:label xml:lang="en">electrolyte_problem</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000072 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000072">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Anemia</text>
+        <rdfs:label xml:lang="en">anemia</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000073 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000073">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Head Injury</text>
+        <rdfs:label xml:lang="en">head_injury</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000074 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000074">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Skin Scaling</text>
+        <rdfs:label xml:lang="en">skin_scaling</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000075 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000075">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <hasSynonym rdf:resource="https://ontology.drpawspaw.com/ADSO0000000116"/>
+        <text xml:lang="en">Bumps on Skin</text>
+        <rdfs:label xml:lang="en">bumps_on_skin</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000076 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000076">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Pigmentation of Skin</text>
+        <rdfs:label xml:lang="en">pigmentation_of_skin</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000077 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000077">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/disease_synonym"/>
+        <text xml:lang="en">Cannine Parvovirus</text>
+        <rdfs:label xml:lang="en">canine_parvovirus</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000078 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000078">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Thickening of Skin</text>
+        <rdfs:label xml:lang="en">thickening_of_skin</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000079 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000079">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <hasSynonym rdf:resource="https://ontology.drpawspaw.com/ADSO0000000117"/>
+        <hasSynonym rdf:resource="https://ontology.drpawspaw.com/ADSO0000000118"/>
+        <hasSynonym rdf:resource="https://ontology.drpawspaw.com/ADSO0000000119"/>
+        <text xml:lang="en">Pale Gums</text>
+        <rdfs:label xml:lang="en">pale_gum</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000080 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000080">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/disease_synonym"/>
+        <text xml:lang="en">Lung Infection</text>
+        <rdfs:label xml:lang="en">lung_infection</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000081 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000081">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <hasSynonym rdf:resource="https://ontology.drpawspaw.com/ADSO0000000121"/>
+        <text xml:lang="en">Jaundiced Skin</text>
+        <rdfs:label xml:lang="en">jaundiced_skin</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000082 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000082">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Fast Breathing</text>
+        <rdfs:label xml:lang="en">fast_breathing</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000083 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000083">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/disease"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000005"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000007"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000008"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000009"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000017"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000023"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000026"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000027"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000028"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000030"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000031"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000032"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000033"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000034"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000036"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000037"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000038"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000039"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000040"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000093"/>
+        <hasSynonym rdf:resource="https://ontology.drpawspaw.com/ADSO0000000133"/>
+        <hasSynonym rdf:resource="https://ontology.drpawspaw.com/ADSO0000000134"/>
+        <text xml:lang="en">Distempter</text>
+        <rdfs:label xml:lang="en">distemper</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000084 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000084">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/disease"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000007"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000017"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000020"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000026"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000030"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000041"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000042"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000043"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000045"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000093"/>
+        <hasSynonym rdf:resource="https://ontology.drpawspaw.com/ADSO0000000080"/>
+        <text xml:lang="en">Pneumonia</text>
+        <rdfs:label xml:lang="en">pneumonia</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000085 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000085">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/disease"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000023"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000046"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000047"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000048"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000050"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000051"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000052"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000055"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000095"/>
+        <hasSynonym rdf:resource="https://ontology.drpawspaw.com/ADSO0000000092"/>
+        <hasSynonym rdf:resource="https://ontology.drpawspaw.com/ADSO0000000120"/>
+        <text xml:lang="en">Bone Fractures</text>
+        <rdfs:label xml:lang="en">bone_fractures</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000086 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000086">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/disease"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000056"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000057"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000059"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000060"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000061"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000062"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000064"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000065"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000096"/>
+        <hasSynonym rdf:resource="https://ontology.drpawspaw.com/ADSO0000000127"/>
+        <text xml:lang="en">Pyometra</text>
+        <rdfs:label xml:lang="en">pyometra</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000087 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000087">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/disease"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000000"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000012"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000019"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000066"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000067"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000068"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000069"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000070"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000071"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000072"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000073"/>
+        <text xml:lang="en">Idiopathic Seizures</text>
+        <rdfs:label xml:lang="en">idiopathic_seizures</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000088 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000088">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/disease"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000023"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000029"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000037"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000044"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000049"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000097"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000098"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000099"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000100"/>
+        <hasSynonym rdf:resource="https://ontology.drpawspaw.com/ADSO0000000128"/>
+        <text xml:lang="en">Ear Infections</text>
+        <rdfs:label xml:lang="en">ear_infections</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000089 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000089">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/disease"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000044"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000063"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000074"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000075"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000076"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000078"/>
+        <hasSynonym rdf:resource="https://ontology.drpawspaw.com/ADSO0000000129"/>
+        <text xml:lang="en">Demodicosis</text>
+        <rdfs:label xml:lang="en">demodicosis</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000090 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000090">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/disease"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000017"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000030"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000079"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000081"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000082"/>
+        <hasSymptom rdf:resource="https://ontology.drpawspaw.com/ADSO0000000091"/>
+        <hasSynonym rdf:resource="https://ontology.drpawspaw.com/ADSO0000000131"/>
+        <hasSynonym rdf:resource="https://ontology.drpawspaw.com/ADSO0000000135"/>
+        <text xml:lang="en">IMHA</text>
+        <rdfs:label xml:lang="en">IMHA</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000091 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000091">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Weakness</text>
+        <rdfs:label xml:lang="en">weakness</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000092 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000092">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/disease_synonym"/>
+        <text xml:lang="en">Broken Bone</text>
+        <rdfs:label xml:lang="en">broken_bone</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000093 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000093">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <hasSynonym rdf:resource="https://ontology.drpawspaw.com/ADSO0000000101"/>
+        <hasSynonym rdf:resource="https://ontology.drpawspaw.com/ADSO0000000102"/>
+        <text xml:lang="en">Breathing Difficulties</text>
+        <rdfs:label xml:lang="en">breathing_difficulties</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000094 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000094">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Popping Sound on Limbs</text>
+        <rdfs:label xml:lang="en">popping_sound_on_limbs</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000095 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000095">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Popping sound on bones</text>
+        <rdfs:label xml:lang="en">popping_sound_on_bones</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000096 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000096">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Discharge from the Valva</text>
+        <rdfs:label xml:lang="en">discharge_from_the_valva</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000097 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000097">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Dark Discharge</text>
+        <rdfs:label xml:lang="en">dark_discharge</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000098 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000098">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <hasSynonym rdf:resource="https://ontology.drpawspaw.com/ADSO0000000113"/>
+        <hasSynonym rdf:resource="https://ontology.drpawspaw.com/ADSO0000000114"/>
+        <text xml:lang="en">Odor</text>
+        <rdfs:label xml:lang="en">odor</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000099 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000099">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Redness</text>
+        <rdfs:label xml:lang="en">redness</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000100 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000100">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom"/>
+        <text xml:lang="en">Swelling of Ear Canals</text>
+        <rdfs:label xml:lang="en">swelling_of_ear_canals</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000101 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000101">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom_synonym"/>
+        <text xml:lang="en">Breathing Problems</text>
+        <rdfs:label xml:lang="en">breathing_problems</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000102 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000102">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom_synonym"/>
+        <text xml:lang="en">Irregular Breathing</text>
+        <rdfs:label xml:lang="en">irregular_breathing</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000103 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000103">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom_synonym"/>
+        <text xml:lang="en">Nasal Whistling</text>
+        <rdfs:label xml:lang="en">nasal_whistling</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000104 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000104">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom_synonym"/>
+        <text xml:lang="en">Nasal Wheezing</text>
+        <rdfs:label xml:lang="en">nasal_wheezing</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000105 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000105">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom_synonym"/>
+        <text xml:lang="en">Low Energy</text>
+        <rdfs:label xml:lang="en">low_energy</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000106 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000106">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom_synonym"/>
+        <text xml:lang="en">Reduce body Weight</text>
+        <rdfs:label xml:lang="en">reduce_body_weight</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000107 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000107">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom_synonym"/>
+        <text xml:lang="en">Unable to walk</text>
+        <rdfs:label xml:lang="en">unable_to_walk</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000108 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000108">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom_synonym"/>
+        <text xml:lang="en">Walking problems</text>
+        <rdfs:label xml:lang="en">walking_problems</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000109 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000109">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom_synonym"/>
+        <text xml:lang="en">Grinding sound of bone</text>
+        <rdfs:label xml:lang="en">grinding_sound_of_bone</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000110 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000110">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom_synonym"/>
+        <rdfs:label xml:lang="en">high_urination</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000111 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000111">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom_synonym"/>
+        <text xml:lang="en">Head Shaking</text>
+        <rdfs:label xml:lang="en">head_shaking</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000112 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000112">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom_synonym"/>
+        <text xml:lang="en">Crusting in the Ears</text>
+        <rdfs:label xml:lang="en">crusting_in_the_ears</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000113 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000113">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom_synonym"/>
+        <text xml:lang="en">Bad Smell</text>
+        <rdfs:label xml:lang="en">bad_smell</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000114 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000114">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom_synonym"/>
+        <text xml:lang="en">Unpleasant Smell</text>
+        <rdfs:label xml:lang="en">unpleasant_smell</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000115 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000115">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom_synonym"/>
+        <text xml:lang="en">Hair Loss</text>
+        <rdfs:label xml:lang="en">hair_loss</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000116 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000116">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom_synonym"/>
+        <text xml:lang="en">Papules</text>
+        <rdfs:label xml:lang="en">papules</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000117 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000117">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom_synonym"/>
+        <text xml:lang="en">White gum</text>
+        <rdfs:label xml:lang="en">white_gum</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000118 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000118">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom_synonym"/>
+        <text xml:lang="en">Yellow gum</text>
+        <rdfs:label xml:lang="en">yellow_gum</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000119 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000119">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom_synonym"/>
+        <text xml:lang="en">Gray gum</text>
+        <rdfs:label xml:lang="en">gray_gum</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000120 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000120">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/disease_synonym"/>
+        <text xml:lang="en">Fractures in Bones</text>
+        <rdfs:label xml:lang="en">fractures_in_bones</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000121 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000121">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom_synonym"/>
+        <text xml:lang="en">Yellow Skin</text>
+        <rdfs:label xml:lang="en">yellow_skin</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000122 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000122">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom_synonym"/>
+        <text xml:lang="en">High Temperature</text>
+        <rdfs:label xml:lang="en">high_temperature</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000123 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000123">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom_synonym"/>
+        <text xml:lang="en">Increase Body Heat</text>
+        <rdfs:label xml:lang="en">increase_body_heat</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000124 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000124">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom_synonym"/>
+        <text xml:lang="en">Heavy Pain</text>
+        <rdfs:label xml:lang="en">heavy_pain</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000125 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000125">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom_synonym"/>
+        <text xml:lang="en">Severe Pain</text>
+        <rdfs:label xml:lang="en">severe_pain</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000126 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000126">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/symptom_synonym"/>
+        <text xml:lang="en">Reduce Appetite</text>
+        <rdfs:label xml:lang="en">reduce_appetite</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000127 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000127">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/disease_synonym"/>
+        <text xml:lang="en">Pus Filled Uterus</text>
+        <rdfs:label xml:lang="en">pus_filled_uterus</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000128 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000128">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/disease_synonym"/>
+        <text xml:lang="en">Otits</text>
+        <rdfs:label xml:lang="en">otits</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000129 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000129">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/disease_synonym"/>
+        <text xml:lang="en">Demodex Mite Infection</text>
+        <rdfs:label xml:lang="en">demodex_mite_infection</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000131 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000131">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/disease_synonym"/>
+        <text xml:lang="en">Auto Immune Hemolytic Anemia</text>
+        <rdfs:label xml:lang="en">autoimmune_hemolytic_anemia</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000133 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000133">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/disease_synonym"/>
+        <text xml:lang="en">CDV Infection</text>
+        <rdfs:label xml:lang="en">cdv_infection</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000134 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000134">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/disease_synonym"/>
+        <text xml:lang="en">Canine Distemper</text>
+        <rdfs:label xml:lang="en">canine_distemper</rdfs:label>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- https://ontology.drpawspaw.com/ADSO0000000135 -->
+
+    <owl:NamedIndividual rdf:about="https://ontology.drpawspaw.com/ADSO0000000135">
+        <rdf:type rdf:resource="https://ontology.drpawspaw.com/disease_synonym"/>
+        <text xml:lang="en">Immune-mediated hemolytic anemia</text>
+        <rdfs:label xml:lang="en">immune_mediated_hemolytic_anemia</rdfs:label>
+    </owl:NamedIndividual>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
+
