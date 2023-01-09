@@ -8,8 +8,8 @@ import transformers
 from nltk.corpus import stopwords
 import tensorflow as tf
 import nltk
-from utils import get_ref, is_exist_es, is_exist_ss, get_text_from_uri, build_query
-from model import g, ner, ssm, tsm
+from linker.utils import get_ref, is_exist_es, is_exist_ss, get_text_from_uri, build_query
+from linker.model import g, ner, ssm, tsm
 
 word_join_character = " "  # Use to join the words in an array
 stop_words = stopwords.words("english")
@@ -160,6 +160,5 @@ class BertSemanticDataGenerator(tf.keras.utils.Sequence):
         else:
             return [input_ids, attention_masks, token_type_ids]
 
-# TODO: (Remove) Tryout Implementation
 init_cfg()
 print("Prediction: ", entity_linker("My dog has been vomiting and has diarrhea"))

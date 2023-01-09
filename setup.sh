@@ -7,4 +7,4 @@ mv adso.owl data
 
 # Install python packages
 echo "--- Install python packages ---"
-python3 -m pip install rdflib spacy sentence-transformers huggingface-hub transformers
+python3 -m pip install -r requirements.txt

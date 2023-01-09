@@ -1,5 +1,5 @@
 from rdflib import URIRef
-from model import g
+from linker.model import g
 
 # This function return SPARQL query, 
 # That able to get the disease from symptoms

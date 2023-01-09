@@ -6,7 +6,7 @@ from huggingface_hub import from_pretrained_keras
 
 # Load ontology graph
 g = Graph()
-g.parse("../data/adso.owl")
+g.parse("https://raw.githubusercontent.com/viraj-lakshitha/animal-disease-symptom-ontology/develop/ADSOv1.0.3.owl", format="xml")
 
 # Named entity recognition model
 tokenizer = AutoTokenizer.from_pretrained("d4data/biomedical-ner-all")
