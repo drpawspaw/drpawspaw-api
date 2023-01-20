@@ -4,6 +4,7 @@ from transformers import pipeline
 from transformers import AutoTokenizer, AutoModelForTokenClassification
 from huggingface_hub import from_pretrained_keras
 import joblib
+import os
 
 # Load ontology graph
 g = Graph()
@@ -15,7 +16,8 @@ g.parse("https://raw.githubusercontent.com/viraj-lakshitha/animal-disease-sympto
 # ner = pipeline("ner", model=bme, tokenizer=tokenizer, aggregation_strategy="simple")
 
 # Part-of-Speech
-pos_tagger = joblib.load("../utils/pos-tagger.joblib")
+model_path = os.path.dirname(os.path.realpath(__file__)) + "/utils/pos-tagger.joblib"
+pos_tagger = joblib.load(model_path)
 
 # Text similarity model
 tsm = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')

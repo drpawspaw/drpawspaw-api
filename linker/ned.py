@@ -3,13 +3,17 @@ from rdflib import Graph, Namespace, Literal, RDF, URIRef
 from transformers import pipeline
 from transformers import AutoTokenizer, AutoModelForTokenClassification
 from huggingface_hub import from_pretrained_keras
-import numpy as np
-import transformers
 from nltk.corpus import stopwords
-import tensorflow as tf
-import nltk
 from linker.utils import get_ref, is_exist_es, is_exist_ss, get_text_from_uri, build_query, features
 from linker.model import g, pos_tagger, ssm, tsm
+import tensorflow as tf
+import transformers
+import numpy as np
+import nltk
+import os
+
+# Define the tensorflow logger levels
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 word_join_character = " "  # Use to join the words in an array
 stop_words = stopwords.words("english")
@@ -77,8 +81,8 @@ def entity_linker(sentence):
     ) if en[1] == "SYMPTOM"]
     
     for e in annotated_entites:
-        current_entity_candidates = get_most_similarity_entities(e, expanded_symp)
-        etq.append(get_highest_ctx_similarity(e, current_entity_candidates))
+        current_entity_candidates = get_most_similarity_entities(e[0], expanded_symp)
+        etq.append(get_highest_ctx_similarity(e[0], current_entity_candidates))
     current_query = build_query(list(map(lambda x: x[0][0], etq)))
     return [rq for rq in g.query(current_query)]
 
@@ -181,5 +185,5 @@ class BertSemanticDataGenerator(tf.keras.utils.Sequence):
         else:
             return [input_ids, attention_masks, token_type_ids]
 
+# Initialize the configurations
 init_cfg()
-print("Prediction: ", entity_linker("My dog has been vomiting and has diarrhea"))
