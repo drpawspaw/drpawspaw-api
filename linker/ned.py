@@ -3,13 +3,17 @@ from rdflib import Graph, Namespace, Literal, RDF, URIRef
 from transformers import pipeline
 from transformers import AutoTokenizer, AutoModelForTokenClassification
 from huggingface_hub import from_pretrained_keras
-import numpy as np
-import transformers
 from nltk.corpus import stopwords
+from linker.utils import get_ref, is_exist_es, is_exist_ss, get_text_from_uri, build_query, features
+from linker.model import g, pos_tagger, ssm, tsm
 import tensorflow as tf
+import transformers
+import numpy as np
 import nltk
-from linker.utils import get_ref, is_exist_es, is_exist_ss, get_text_from_uri, build_query
-from linker.model import g, ner, ssm, tsm
+import os
+
+# Define the tensorflow logger levels
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 word_join_character = " "  # Use to join the words in an array
 stop_words = stopwords.words("english")
@@ -57,16 +61,37 @@ def init_cfg():
 # Entity linker component - This function accepts the sentence as string and return the predicted values
 def entity_linker(sentence):
     etq = []  # Entities to query
-    annotate_tokens = ner(word_join_character.join(
-        [token for token in nltk.word_tokenize(sentence) if token.lower() not in stop_words]
-    ))
-    annotate_entity = [en['word'] for en in annotate_tokens
-                       if en['entity_group'] == "Sign_symptom" and en['score'] > 0.75]
-    for e in annotate_entity:
-        current_entity_candidates = get_most_similarity_entities(e, expanded_symp)
-        etq.append(get_highest_ctx_similarity(e, current_entity_candidates))
+    # annotate_tokens = ner(word_join_character.join(
+    #     [token for token in nltk.word_tokenize(sentence) if token.lower() not in stop_words]
+    # ))
+    # annotate_entity = [en['word'] for en in annotate_tokens
+    #                    if en['entity_group'] == "Sign_symptom" and en['score'] > 0.75]
+    
+    # Tokenize the sentence
+    tokens = nltk.word_tokenize(sentence)
+
+    # Remove stop words, (stopwords are getting fromt the NLTK library)
+    filtered_tokens = [token for token in tokens if token.lower() not in stop_words]
+
+    # Filtered tokens as sentence
+    filtered_user_input = " ".join(filtered_tokens)
+
+    annotated_entites = [en for en in list(
+        pos_tag(nltk.word_tokenize(filtered_user_input)) # Filter entities annotate as "SYMPTOM"
+    ) if en[1] == "SYMPTOM"]
+    
+    for e in annotated_entites:
+        current_entity_candidates = get_most_similarity_entities(e[0], expanded_symp)
+        etq.append(get_highest_ctx_similarity(e[0], current_entity_candidates))
     current_query = build_query(list(map(lambda x: x[0][0], etq)))
     return [rq for rq in g.query(current_query)]
+
+
+# Part-of-Speech tagger, this will annotate the named entities
+def pos_tag(sentence):
+    tags = pos_tagger.predict([features(sentence, index) for index in range(len(sentence))])
+    return zip(sentence, tags)
+
 
 # "get_highest_ctx_similarity" function return the highest context similarity as tuple (URI, Word, ctx_similarity)
 def get_highest_ctx_similarity(entity, nodes):
@@ -160,5 +185,5 @@ class BertSemanticDataGenerator(tf.keras.utils.Sequence):
         else:
             return [input_ids, attention_masks, token_type_ids]
 
+# Initialize the configurations
 init_cfg()
-print("Prediction: ", entity_linker("My dog has been vomiting and has diarrhea"))
