@@ -3,6 +3,7 @@ from linker.ned import entity_linker
 
 examples = [
     ["My dog has been vomiting and has diarrhea"],
+    ["My dog has been vomiting has Limb Swelling and has diarrhea"]
 ]
 
 def predict_disease(text):
@@ -15,4 +16,4 @@ app = gr.Interface(
     examples=examples
 )
 
-app.launch()
+app.launch(share=True)
