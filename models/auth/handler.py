@@ -21,6 +21,12 @@ class AuthRefreshRequestSchema(Schema):
     refresh_token = fields.Str()
     type = fields.Str()
 
+class AuthSignupRequestSchema(Schema):
+    email = fields.Email()
+    password = fields.Str()
+    name = fields.Str()
+    type = fields.Str()
+
 class AuthRefreshRequest(object):
     def __init__(self, refresh_token):
         self.refresh_token = refresh_token
@@ -52,3 +58,12 @@ class AuthReject(object):
     
     def __repr__(self):
         return '<AuthReject(description={self.description!r})>'.format(self=self)
+
+class AuthSignupRequest(object):
+    def __init__(self, name, email, password):
+        self.name = name
+        self.email = email
+        self.password = password
+    
+    def __repr__(self):
+        return '<AuthSignupRequest(email={self.email!r})>'.format(self=self)
