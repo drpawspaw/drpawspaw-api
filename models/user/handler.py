@@ -3,7 +3,7 @@ import datetime as dt
 import uuid
 
 class User(object):
-    def __init__(self, name, email):
+    def __init__(self, name, email, provider, image_url):
         self._id = uuid.uuid4()
         self.name = name
         self.email = email
