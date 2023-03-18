@@ -32,13 +32,13 @@ def pets():
             return jsonify(pets), 200
         return { "data": "Unable to retreive the data" }, 500
 
-@pet_api.route("/vaccine-reminder", methods=['POST'])
-def send_reminder():
-    email_req = VaccineEmailSchema().load(request.get_json())
-    return send_reminder_email(
-        email_req['email'], 
-        email_req['pet'], 
-        email_req['owner'], 
-        email_req['vaccine'], 
-        email_req['date'].strftime("%d %b, %Y")
-    )
+# @pet_api.route("/vaccine-reminder", methods=['POST'])
+# def send_reminder():
+#     email_req = VaccineEmailSchema().load(request.get_json())
+#     return send_reminder_email(
+#         email_req['email'], 
+#         email_req['pet'], 
+#         email_req['owner'], 
+#         email_req['vaccine'], 
+#         email_req['date'].strftime("%d %b, %Y")
+#     )
