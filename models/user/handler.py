@@ -20,4 +20,4 @@ class UserSchema(Schema):
     image_url = fields.Str()
     email = fields.Email()
     created_at = fields.Date()
-    type = fields.Str()
+    type = fields.Str()        

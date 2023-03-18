@@ -1,4 +1,3 @@
-from xxlimited import new
 from flask import Blueprint, request, jsonify
 from models.user.handler import UserSchema
 from routes import database_conn
