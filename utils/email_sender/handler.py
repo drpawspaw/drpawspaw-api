@@ -55,11 +55,6 @@ def send_welcome_email(email, name):
         print("{SUCESS}: Email send successfully")
     except Exception as e:
         print("{ERROR}: Unable to send the email", e)
-        return { 
-            "data" : "Unable to send the email",
-            "error": e
-        }, 200
-    return { "data" : "Email send successfully" }, 200
 
 # email scheduler function to send reminders, this function running as background scheduler
 def email_scheduler():
