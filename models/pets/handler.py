@@ -23,11 +23,3 @@ class PetSchema(Schema):
     bread = fields.Str()
     owner = fields.Str()
     created_at = fields.DateTime()
-
-class VaccineEmailSchema(Schema):
-    owner = fields.Str()
-    email = fields.Email()
-    pet = fields.Str()
-    owner = fields.Str()
-    vaccine = fields.Str()
-    date = fields.DateTime()
