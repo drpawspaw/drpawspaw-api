@@ -27,8 +27,8 @@ app.register_blueprint(chatbot_api)
 app.register_blueprint(pet_api)
 
 # email scheduler
-scheduler = BackgroundScheduler()
-scheduler.add_job(func=email_scheduler, trigger="interval", seconds=10) # schedule for every 10 seconds
+scheduler = BackgroundScheduler(daemon=True)
+scheduler.add_job(func=email_scheduler, trigger="interval", hours=23) # schedule for every 23 hours to check the emails
 scheduler.start()
 
 # shut down the scheduler when exiting the app
