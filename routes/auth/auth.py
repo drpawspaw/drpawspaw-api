@@ -2,6 +2,7 @@ from models.auth.handler import AuthRequestSchema, AuthResponse, AuthReject, Aut
 from flask import request, Blueprint, jsonify, make_response, redirect
 from datetime import datetime, timedelta
 from cryptography.fernet import Fernet
+from utils.email_sender.handler import send_welcome_email
 from routes import database_conn
 from functools import wraps
 import datetime as dt
@@ -110,6 +111,8 @@ def google_callback():
         })
         if insert_res == None:
             return reject_schema.dump(AuthReject("Unable to create new user record")), 500
+
+    send_welcome_email(user_res['email'], user_res['name'])
 
     redirect_url = "http://127.0.0.1:8000/api/auth/authenticate?access_token={access_token}&refresh_token={refresh_token}".format(
         access_token=grant_access_token(user_res['email']), refresh_token=grant_refresh_token(user_res['email'])
