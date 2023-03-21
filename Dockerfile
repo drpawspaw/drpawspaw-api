@@ -9,6 +9,7 @@ RUN apt update && apt install build-essential
 # install requirements
 RUN pip install wheel setuptools pip --upgrade
 RUN pip install -r requirements.txt
+RUN pip install google-cloud-dialogflow 
 
 # setup.py file resposible to download the required packages for NLTK
 RUN python setup.py
