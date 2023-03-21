@@ -113,8 +113,7 @@ def google_callback():
         })
         if insert_res == None:
             return reject_schema.dump(AuthReject("Unable to create new user record")), 500
-
-    send_welcome_email(user_res['email'], user_res['name'])
+        send_welcome_email(user_res['email'], user_res['name'])
 
     redirect_url = "http://{host}/api/auth/authenticate?access_token={access_token}&refresh_token={refresh_token}".format(
         host=os.getenv("HOST"), access_token=grant_access_token(user_res['email']), refresh_token=grant_refresh_token(user_res['email'])
