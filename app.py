@@ -13,6 +13,9 @@ from apscheduler.schedulers.background import BackgroundScheduler
 # load environment variables
 load_dotenv()
 
+# add google service account credential file
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "drpawpaw-20191157.json"
+
 # define application configurations
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
