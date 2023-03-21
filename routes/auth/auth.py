@@ -86,8 +86,10 @@ def authenticate():
 def google_callback():
     reject_schema = AuthRejectSchema(many=False)
 
+    callback_uri = "http://{host}/api/auth/google/callback".format(host=os.getenv("HOST"))
+
     token_url = "https://oauth2.googleapis.com/token?code={code}&client_id={client_id}&client_secret={client_secret}&redirect_uri={redirect_uri}&grant_type=authorization_code".format(
-        code=request.args.get('code'), client_id=os.getenv("GOOGLE_CLIENT_ID"), client_secret=os.getenv("GOOGLE_CLIENT_SECRET"), redirect_uri=os.getenv("GOOGLE_CALLBACK_URI"))
+        code=request.args.get('code'), client_id=os.getenv("GOOGLE_CLIENT_ID"), client_secret=os.getenv("GOOGLE_CLIENT_SECRET"), redirect_uri=callback_uri)
 
     headers = {'Content-Type': 'application/x-www-form-urlencoded'}
     token_res = requests.post(token_url, headers=headers)
@@ -114,8 +116,8 @@ def google_callback():
 
     send_welcome_email(user_res['email'], user_res['name'])
 
-    redirect_url = "http://127.0.0.1:8000/api/auth/authenticate?access_token={access_token}&refresh_token={refresh_token}".format(
-        access_token=grant_access_token(user_res['email']), refresh_token=grant_refresh_token(user_res['email'])
+    redirect_url = "http://{host}/api/auth/authenticate?access_token={access_token}&refresh_token={refresh_token}".format(
+        host=os.getenv("HOST"), access_token=grant_access_token(user_res['email']), refresh_token=grant_refresh_token(user_res['email'])
     )
     return redirect(redirect_url, code=302)
 
