@@ -1,11 +1,13 @@
 from flask import Blueprint, request, jsonify, make_response
 from google.cloud import dialogflow
 from models.chat.handler import ChatSchema
+from routes.auth.auth import auth_required
 import os
 
 chatbot_api = Blueprint("chatbot", __name__, url_prefix="/api/v1/chats")
 
 @chatbot_api.route("/", methods=['POST'])
+@auth_required
 def dialogflow_detect_intent():
     req = ChatSchema().load(request.get_json())
     session_client = dialogflow.SessionsClient()

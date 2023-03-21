@@ -3,6 +3,7 @@ from models.pets.handler import PetSchema
 from routes import database_conn
 from utils.email_sender.handler import send_reminder_email
 from bson.objectid import ObjectId
+from routes.auth.auth import auth_required
 import datetime
 
 pet_api = Blueprint("pets", __name__, url_prefix="/api/v1/pets")
@@ -11,6 +12,7 @@ pet_api = Blueprint("pets", __name__, url_prefix="/api/v1/pets")
 pet_collection = database_conn['pets']
 
 @pet_api.route('/', methods=['POST', 'GET', 'PUT', 'DELETE'])
+@auth_required
 def retrieve_create_pets():
     # Create new pet profile
     if request.method == 'POST':
@@ -43,6 +45,7 @@ def retrieve_create_pets():
         return { "data": "Unable to retreive the records" }, 500
     
 @pet_api.route('/<id>', methods=['PUT', 'DELETE'])
+@auth_required
 def update_delete(id):
     if request.method == 'PUT':
         req_update = PetSchema().load(request.get_json())
