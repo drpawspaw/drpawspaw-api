@@ -14,7 +14,7 @@ RUN pip install -r requirements.txt
 RUN python setup.py
 
 # run the application
-CMD ["python", "view.py"]
+CMD ["python", "app.py"]
 
 # expose the endpoint access outside
-EXPOSE 7860
+EXPOSE 8000
