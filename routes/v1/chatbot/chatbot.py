@@ -1,7 +1,8 @@
 from flask import Blueprint, request, jsonify, make_response
 from google.cloud import dialogflow
 from models.chat.handler import ChatSchema
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
+
 import os
 
 chatbot_api = Blueprint("chatbot", __name__, url_prefix="/api/v1/chats")

@@ -2,7 +2,8 @@ import os
 import atexit
 from dotenv import load_dotenv
 from flask import Flask
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
+
 from routes.auth.auth import auth_api
 from routes.v1.users.users import user_api
 from routes.v1.chatbot.chatbot import chatbot_api

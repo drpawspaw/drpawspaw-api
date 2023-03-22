@@ -2,7 +2,8 @@ from flask import Blueprint, request, jsonify
 from models.user.handler import UserSchema
 from routes.auth.auth import auth_required
 from routes import database_conn
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
+
 
 user_api = Blueprint("users", __name__, url_prefix="/api/v1/users")
 
