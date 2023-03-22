@@ -12,7 +12,7 @@ user_collection = database_conn['users']
 
 
 @user_api.route('/', methods=['GET', 'POST'])
-@auth_required
+# @auth_required
 @cross_origin()
 def users():
     if request.method == 'POST':
@@ -21,8 +21,14 @@ def users():
         return {"data": "Record added successfully"}, 201
 
     if request.method == 'GET':
-        current_users = []
-        for user in user_collection.find():
-            user['_id'] = str(user['_id'])
-            current_users.append(user)
-        return jsonify(current_users), 200
+        try:
+            req_user = user_collection.find_one({"email": request.args['email']})
+            req_user["_id"] = str(req_user["_id"])
+            print("req_user", req_user)
+            return jsonify(req_user), 200
+        except:
+            current_users = []
+            for user in user_collection.find():
+                user['_id'] = str(user['_id'])
+                current_users.append(user)
+            return jsonify(current_users), 200
