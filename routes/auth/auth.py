@@ -6,6 +6,7 @@ from utils.email_sender.handler import send_welcome_email
 from routes import database_conn
 from functools import wraps
 import datetime as dt
+from flask_cors import CORS
 import requests
 from dotenv import load_dotenv
 import jwt
@@ -75,6 +76,7 @@ def is_password_valid(email, password):
 
 # Open link in https://accounts.google.com/o/oauth2/v2/auth?scope=https%3A//www.googleapis.com/auth/userinfo.email%20https%3A//www.googleapis.com/auth/userinfo.profile&access_type=offline&include_granted_scopes=true&response_type=code&redirect_uri=http%3A//localhost:8000/api/auth/google/callback&client_id=484685770657-g5upv6bcnc5e98j5r4p365sbeq1af6ms.apps.googleusercontent.com
 @auth_api.route("/authenticate", methods=['GET'])
+@cross_origin()
 def authenticate():
     return make_response(jsonify({
          "access_token" : request.args.get("access_token"),
@@ -83,6 +85,7 @@ def authenticate():
 
 # Google callback endpoint - CreateAccount/Generate Access Tokens
 @auth_api.route("/google/callback")
+@cross_origin()
 def google_callback():
     reject_schema = AuthRejectSchema(many=False)
 
@@ -122,6 +125,7 @@ def google_callback():
 
 # Get new access tokens from refresh token
 @auth_api.route("/refresh", methods=['POST'])
+@cross_origin()
 @auth_required
 def new_token():
     auth_schema = AuthResponseSchema(many=False)
@@ -133,6 +137,7 @@ def new_token():
     return jsonify(auth_schema.dump(AuthResponse(grant_access_token(refresh_payload['username']), auth_request['refresh_token']))) 
 
 @auth_api.route("/signup", methods=['POST'])
+@cross_origin()
 def auth_signup():
     auth_signup = AuthSignupRequestSchema().load(request.get_json())
     if auth_signup['email'] != "" and auth_signup['password'] != "" and auth_signup['name'] != "" and not is_user_exist(auth_signup['email']):
@@ -155,6 +160,7 @@ def auth_signup():
 
 # Login using user credentials
 @auth_api.route("/login", methods=['POST'])
+@cross_origin()
 def auth_login():
     auth_request = AuthRequestSchema().load(request.get_json())
     if auth_request['username'] != "" and is_password_valid(auth_request['username'], auth_request['password']):
