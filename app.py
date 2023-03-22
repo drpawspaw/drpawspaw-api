@@ -22,6 +22,7 @@ app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 
 # handling cross-origin error
 CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 # define module routes
 app.register_blueprint(user_api)
