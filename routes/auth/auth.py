@@ -6,7 +6,8 @@ from utils.email_sender.handler import send_welcome_email
 from routes import database_conn
 from functools import wraps
 import datetime as dt
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
+
 import requests
 from dotenv import load_dotenv
 import jwt

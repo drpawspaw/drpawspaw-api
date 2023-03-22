@@ -4,7 +4,8 @@ from routes import database_conn
 from utils.email_sender.handler import send_reminder_email
 from bson.objectid import ObjectId
 from routes.auth.auth import auth_required
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
+
 import datetime
 
 pet_api = Blueprint("pets", __name__, url_prefix="/api/v1/pets")
