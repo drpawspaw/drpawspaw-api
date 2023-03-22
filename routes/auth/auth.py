@@ -107,11 +107,12 @@ def google_callback():
         return reject_schema.dump(AuthReject("Unable get tokens from Google server")), 403 
     
     user_res = profile_res.json()
+    print("user_res => ",user_res)
     if auth_col.find_one({"email": user_res['email']}) == None:
         insert_res = auth_col.insert_one({
             "name": user_res['name'],
             "email": user_res['email'],
-            "image_url": user_res['image_url'],
+            "image_url": user_res['picture'],
             "provider": "google",
             "created_at": dt.datetime.now()
         })
