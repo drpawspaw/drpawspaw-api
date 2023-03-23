@@ -23,6 +23,14 @@ def get_text_from_uri(uri):
         if s == uri and p == URIRef("https://ontology.drpawspaw.com/text"):
             return o
 
+# Get URI from text
+def get_uri_from_text(text):
+  for s, p, o in g:
+    if p == URIRef("https://ontology.drpawspaw.com/text"):
+      if o.toPython().lower() == text.lower():
+        return s
+  return None
+
 # Get the URIRef for given keyword
 def get_ref(keyword):
     return URIRef("https://ontology.drpawspaw.com/" + keyword)
