@@ -4,9 +4,10 @@ from transformers import pipeline
 from transformers import AutoTokenizer, AutoModelForTokenClassification
 from huggingface_hub import from_pretrained_keras
 from nltk.corpus import stopwords
-from linker.utils import get_ref, is_exist_es, is_exist_ss, get_text_from_uri, build_query, features
+from linker.utils import get_ref, is_exist_es, is_exist_ss, get_text_from_uri, build_query, features, get_uri_from_text
 from linker.model import g, pos_tagger, ssm, tsm
 import tensorflow as tf
+from itertools import chain
 import transformers
 import numpy as np
 import nltk
@@ -84,8 +85,54 @@ def entity_linker(sentence):
         current_entity_candidates = get_most_similarity_entities(e[0], expanded_symp)
         etq.append(get_highest_ctx_similarity(e[0], current_entity_candidates))
     current_query = build_query(list(map(lambda x: x[0][0], etq)))
-    return [rq for rq in g.query(current_query)]
 
+    # Make an query from ontology using the SPARQL
+    prediction = [rq for rq in g.query(current_query)]
+
+    # prediction = [(rdflib.term.Literal('Babesiosis', lang='en'),), (rdflib.term.Literal('Distempter', lang='en'),)]
+    # If there are multiple predictions from the given symptoms
+    if len(prediction) > 1:
+        # Retrieve the URI for above prediction
+        print("prediction", prediction)
+        duris = list(map(lambda x: get_uri_from_text(x[0].toPython()).toPython(), prediction))
+        # Get the all unique symptoms for predicted diseases
+        symptoms_uris = list(map(lambda x: get_symptoms_from_disease_uri(URIRef(x)), list(duris)))
+        print("symptoms_uris", symptoms_uris)
+        # Convert back to symptoms into readable format
+        symptom_suggestions = list(map(lambda x: get_text_from_uri(URIRef(x)).toPython(), list(chain.from_iterable(symptoms_uris))))
+        print("symptom_suggestions", symptom_suggestions)
+        # Return symptoms suggestions for the better prediction
+        return {
+            "request": sentence,
+            "result_type": "SUGGESTION",
+            "symptom_suggestions": [str(sym) for sym in list(set(symptom_suggestions))],
+            "predicted_disease": [str(d).split("'")[1] for d in prediction]
+        }
+    # Unable to predict
+    if len(prediction) < 1:
+        return {
+            "request": sentence,
+            "result_type": "LIMITATION",
+            "symptom_suggestions": None,
+            "predicted_disease": None
+        }
+    # Return the prediction
+    result = {
+        "request": sentence,
+        "result_type": "PREDICTION",
+        "symptom_suggestions": None,
+        "predicted_disease": str(prediction[0]).split("'")[1]
+    }
+    return result
+
+
+# Get list of symptoms from disease URI
+def get_symptoms_from_disease_uri(uri):
+  symptoms = []
+  for s,p,o in g:
+    if s == uri and p == URIRef("https://ontology.drpawspaw.com/hasSymptom"):
+      symptoms.append(o.toPython())
+  return symptoms
 
 # Part-of-Speech tagger, this will annotate the named entities
 def pos_tag(sentence):
