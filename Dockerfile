@@ -14,9 +14,10 @@ RUN pip install google-cloud-dialogflow
 
 # setup.py file resposible to download the required packages for NLTK
 RUN python setup.py
+RUN chmod +x ./run.sh 
 
 # run the application
-CMD ["python", "app.py"]
+CMD ./run.sh
 
 # expose the endpoint access outside
 EXPOSE 8000
