@@ -7,6 +7,7 @@ COPY . /
 RUN apt update && apt install build-essential
 
 # install requirements
+RUN export PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python 
 RUN pip install wheel setuptools pip --upgrade
 RUN pip install -r requirements.txt
 RUN pip install google-cloud-dialogflow 
