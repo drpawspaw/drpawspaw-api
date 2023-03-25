@@ -15,11 +15,11 @@ pet_collection = database_conn['pets']
 
 @vaccines_api.route("/", methods=['GET', 'POST'])
 # @auth_required
-@cross_origin
+@cross_origin()
 def vaccines():
     if request.method == 'POST':
         new_vaccines = VaccineSchema().load(request.get_json())
-        vaccine_collection.insert_one(new_pet)
+        vaccine_collection.insert_one(new_vaccines)
         return {  "data": "Record added successfully" }, 201
     
     # In here, API should contain owner's id, then

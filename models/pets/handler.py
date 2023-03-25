@@ -27,17 +27,19 @@ class PetSchema(Schema):
     created_at = fields.DateTime()
 
 class Vaccine(object):
-    def __init__(self, name, description, time_period):
+    def __init__(self, name, description, time_period, source):
         self._id = uuid.uuid4()
         self.name = name 
         self.description = description
         self.time_period = time_period
+        self.source = source
         self.created_at = df.datetime.now()
 
 class VaccineSchema(Schema):
     name = fields.Str()
     description = fields.Str()
-    time_period = fields.Int()
+    time_period = fields.Int() # in weeks
+    source = fields.Str()
     created_at = fields.DateTime()
 
 class Treatment(object):
