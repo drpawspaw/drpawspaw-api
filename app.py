@@ -8,6 +8,9 @@ from routes.auth.auth import auth_api
 from routes.v1.users.users import user_api
 from routes.v1.chatbot.chatbot import chatbot_api
 from routes.v1.pets.pets import pet_api
+from routes.v1.vaccine.vaccine import vaccines_api
+from routes.v1.treatment.treatment import treatments_api
+
 from utils.email_sender.handler import email_scheduler
 from apscheduler.schedulers.background import BackgroundScheduler
 
@@ -30,6 +33,8 @@ app.register_blueprint(user_api)
 app.register_blueprint(auth_api)
 app.register_blueprint(chatbot_api)
 app.register_blueprint(pet_api)
+app.register_blueprint(treatments_api)
+app.register_blueprint(vaccines_api)
 
 # email scheduler
 scheduler = BackgroundScheduler(daemon=True)
