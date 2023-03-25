@@ -13,7 +13,7 @@ treatment_collection = database_conn['treatments']
 
 @treatments_api.route("/", methods=['GET', 'POST'])
 # @auth_required
-@cross_origin
+@cross_origin()
 def treatments():
     if request.method == 'GET':
         treatments = []
@@ -29,7 +29,7 @@ def treatments():
 
 @treatments_api.route("/<id>", methods=['DELETE'], endpoint='deleteTreatment')
 # @auth_required
-@cross_origin
+@cross_origin()
 def treatment_delete():
     if request.method == 'DELETE':
         result = treatment_collection.find_one_and_delete(
