@@ -4,4 +4,4 @@ from flask_pymongo import pymongo
 mongo_client = pymongo.MongoClient(
     "mongodb+srv://sample_user:admin123@dev.isia4wb.mongodb.net/?retryWrites=true&w=majority"
 )
-database_conn = mongo_client['sample_db']
+database_conn = mongo_client['drpawspaw']

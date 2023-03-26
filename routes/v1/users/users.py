@@ -12,7 +12,7 @@ user_collection = database_conn['users']
 
 
 @user_api.route('/', methods=['GET', 'POST'])
-# @auth_required
+@auth_required
 @cross_origin()
 def users():
     if request.method == 'POST':
