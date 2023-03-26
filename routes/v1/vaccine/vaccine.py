@@ -9,7 +9,6 @@ import datetime
 vaccines_api = Blueprint("vaccines", __name__, url_prefix="/api/v1/vaccines")
 
 # define mongodb collections
-treatment_collection = database_conn['treatments']
 vaccine_collection = database_conn['vaccines']
 pet_collection = database_conn['pets']
 
@@ -28,19 +27,25 @@ def vaccines():
     # 3. If there any of vaccines, then we will add it to a seperate list and return it
     if request.method == 'GET':
         try:
-            # Request pet by profile id
-            # req_pet = pet_collection.find_one({"_id": ObjectId(request.args['id'])})
-            # req_pet['_id'] = str(req_pet['_id'])
-            return { "data": "Data retrieved successfully" }, 200
-        except:
+            vaccine_list = []
+            # Get all the pets
+            for pet in pet_collection.find():
+                if pet['owner'] == request.args['owner']:
+                    # Get all the vaccines
+                    for vaccine in vaccine_collection.find():
+                        vaccine_date = pet['birthdate'] + datetime.timedelta(days=vaccine['time_period']*7)
+                        # Filter it out by upcoming vaccine or past vaccine
+                        if vaccine_date>datetime.datetime.now():
+                            up_vaccine = {}
+                            up_vaccine['pet'] = pet['name']
+                            up_vaccine['vaccine'] = vaccine['name']
+                            up_vaccine['description'] = vaccine['description']
+                            up_vaccine['date'] = vaccine_date
+                            vaccine_list.append(up_vaccine)
+            return jsonify(vaccine_list), 200
+        except Exception as e:
+            print("Exception: ",e)
             return { "data": "Unable to read the data" }, 500
-            # Request pets by owner id
-            # vaccines = []
-            # for pet in pet_collection.find():
-            #     if pet['owner'] == request.args['owner']:
-            #         pet['_id'] = str(pet['_id'])
-            #         vaccines.append(pet)
-            # return jsonify(owner_pet), 200
 
 @vaccines_api.route("/<id>", methods=['DELETE'])
 # @auth_required
