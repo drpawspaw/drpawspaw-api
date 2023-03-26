@@ -9,6 +9,7 @@ import datetime
 # define mongodb collection
 pet_collection = database_conn['pets']
 user_collection = database_conn['users']
+vaccine_collection = database_conn['vaccines']
 
 # send vaccination reminder to the owners
 def send_reminder_email(email, pet, owner, vaccine, date):
@@ -59,18 +60,19 @@ def send_welcome_email(email, name):
 # email scheduler function to send reminders, this function running as background scheduler
 def email_scheduler():
     for pet in pet_collection.find():
-        if pet['lastVaccinationDate'].isoformat().split('T')[0] == datetime.datetime.now().strftime('%Y-%m-%d'):
-            # Get user details from database
-            try:
-                owner = user_collection.find_one({"_id": ObjectId(pet["owner"])})
-                _, status = send_reminder_email(
-                    owner["email"], 
-                    pet["name"],
-                    owner['name'],
-                    pet["lastVaccination"],
-                    pet['lastVaccinationDate'].isoformat().split('T')[0]
-                )
-                if status == 200:
-                    print("{SUCCESS}: Email send successfully")
-            except Exception as ex:
-                print("{ERROR}: Unable to send email notification", ex)
+        for vaccine in vaccine_collection.find():
+            if (pet['birthdate'] + datetime.timedelta(days=vaccine['time_period']*7)).strftime('%Y-%m-%d') == datetime.datetime.now().strftime('%Y-%m-%d'):
+                # Get user details from database
+                try:
+                    owner = user_collection.find_one({"_id": ObjectId(pet["owner"])})
+                    _, status = send_reminder_email(
+                        owner["email"], 
+                        pet["name"],
+                        owner['name'],
+                        pet["lastVaccination"],
+                        pet['lastVaccinationDate'].isoformat().split('T')[0]
+                    )
+                    if status == 200:
+                        print("{SUCCESS}: Email send successfully")
+                except Exception as ex:
+                    print("{ERROR}: Unable to send email notification", ex)
