@@ -4,8 +4,12 @@ from models.chat.handler import ChatSchema
 from flask_cors import CORS, cross_origin
 from rdflib import Graph, Namespace, Literal, RDF, URIRef
 from linker.ned import entity_linker
+from routes import database_conn
 
 import os
+
+# define mongodb collections
+treatment_collection = database_conn['treatments']
 
 chatbot_api = Blueprint("chatbot", __name__, url_prefix="/api/v1/chats")
 decision_request_intent = "projects/drpawpaw-20191157/agent/intents/11a8f35f-f36c-44ab-b6a0-fd9fb69e99e4"
@@ -28,7 +32,8 @@ def dialogflow_detect_intent():
     response['intent'] = result.query_result.intent.display_name
     response['confidence'] = result.query_result.intent_detection_confidence
     response['type'] = "GENERAL"
-    response['suggestions'] = [] # By default this will be an empty array, To keep the response entity constant, 
+    response['suggestions'] = [] # By default this will be an empty array, To keep the response entity constant,
+    response['treatments'] = ""
 
     # If the intent recognize as "PREDICTION REQUEST", then pass the message to entity_linker for the prediction
     if result.query_result.intent.name == decision_request_intent:
@@ -38,15 +43,19 @@ def dialogflow_detect_intent():
         # Limitation 
         if pred_resp['result_type'] == 'LIMITATION':
             response['type'] = "LIMITATION"
-            response['response'] = "We don't have the knowledge to figure out what disease it is based on the information we have."
+            response['response'] = "Based on the information that we have, we are unable to determine what disease it is because we do not have the necessary expertise."
         # Suggestion - In here, user will get list of symptoms for the prediction.
         elif pred_resp['result_type'] == 'SUGGESTION':
             response['type'] = "SUGGESTION"
-            response['response'] = "According to the provided information we are not able to identify extact disease, But it may be {diseases}. If you can provide more symptoms out of follwoing systom, that would be help to perform the prediction more accurate.".format(diseases= ", ".join(pred_resp['predicted_disease']))
+            response['response'] = "According to the information that has been provided to us, we are unable to identify the specific disease; however, it may be {diseases}. It would be helpful to perform a more accurate prediction if you could provide more symptoms out of the following symptoms.".format(diseases= ", ".join(pred_resp['predicted_disease']))
             response['suggestions'] = pred_resp['symptom_suggestions']
         # Prediction
         else:
             response['response'] = "We are able to predict the disease as {disease}".format(disease= pred_resp['predicted_disease'])
+            # Get the treatment from treatments collection
+            for treat in treatment_collection.find():
+                if treat['disease'].lower() == pred_resp['predicted_disease'].lower():
+                    response['treatments'] = "Here are the treatments for {disease}".format(disease=pred_resp['predicted_disease']) + treat['treatments'] + "(Source: {source})".format(source= treat['source']) + ")."
             response['type'] = "PREDICTION"
 
     return jsonify(response), 200
