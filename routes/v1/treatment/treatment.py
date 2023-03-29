@@ -42,4 +42,5 @@ def treatment_delete():
 @treatments_api.after_request
 def add_header(response):
     response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Headers'] = '*'
     return response
