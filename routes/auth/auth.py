@@ -17,7 +17,7 @@ import os
 load_dotenv()
 
 # Define the api wrapper and collection connection
-auth_api = Blueprint("auth", __name__, url_prefix="/api/auth")
+auth_api = Blueprint("auth", __name__)
 auth_col = database_conn['users']
 hasher = Fernet(os.getenv("HASH_KEY"))
 
@@ -76,7 +76,7 @@ def is_password_valid(email, password):
     return False
 
 # Open link in https://accounts.google.com/o/oauth2/v2/auth?scope=https%3A//www.googleapis.com/auth/userinfo.email%20https%3A//www.googleapis.com/auth/userinfo.profile&access_type=offline&include_granted_scopes=true&response_type=code&redirect_uri=http%3A//localhost:8000/api/auth/google/callback&client_id=484685770657-g5upv6bcnc5e98j5r4p365sbeq1af6ms.apps.googleusercontent.com
-@auth_api.route("/authenticate", methods=['GET'])
+@auth_api.route("/api/auth/authenticate", methods=['GET'])
 @cross_origin()
 def authenticate():
     return make_response(jsonify({
@@ -85,7 +85,7 @@ def authenticate():
     }))
 
 # Google callback endpoint - CreateAccount/Generate Access Tokens
-@auth_api.route("/google/callback")
+@auth_api.route("/api/auth/google/callback")
 @cross_origin()
 def google_callback():
     reject_schema = AuthRejectSchema(many=False)
@@ -126,7 +126,7 @@ def google_callback():
     return redirect(redirect_url, code=302)
 
 # Get new access tokens from refresh token
-@auth_api.route("/refresh", methods=['POST'])
+@auth_api.route("/api/auth/refresh", methods=['POST'])
 @cross_origin()
 @auth_required
 def new_token():
@@ -138,7 +138,7 @@ def new_token():
         return reject_schema.dump(AuthReject("Invalid token")), 403
     return jsonify(auth_schema.dump(AuthResponse(grant_access_token(refresh_payload['username']), auth_request['refresh_token']))) 
 
-@auth_api.route("/signup", methods=['POST'])
+@auth_api.route("/api/auth/signup", methods=['POST'])
 @cross_origin()
 def auth_signup():
     auth_signup = AuthSignupRequestSchema().load(request.get_json())
@@ -161,7 +161,7 @@ def auth_signup():
     return make_response(reject_schema.dump(AuthReject("User already exist or invalid request")), 409)
 
 # Login using user credentials
-@auth_api.route("/login", methods=['POST'])
+@auth_api.route("/api/auth/login", methods=['POST'])
 @cross_origin()
 def auth_login():
     auth_request = AuthRequestSchema().load(request.get_json())

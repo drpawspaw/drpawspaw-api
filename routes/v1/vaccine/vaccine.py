@@ -6,15 +6,15 @@ from routes.auth.auth import auth_required
 from flask_cors import CORS, cross_origin
 import datetime
 
-vaccines_api = Blueprint("vaccines", __name__, url_prefix="/api/v1/vaccines")
+vaccines_api = Blueprint("vaccines", __name__)
 
 # define mongodb collections
 vaccine_collection = database_conn['vaccines']
 pet_collection = database_conn['pets']
 
-@vaccines_api.route("/", methods=['GET', 'POST'])
-# @auth_required
+@vaccines_api.route("/api/v1/vaccines", methods=['GET', 'POST'])
 @cross_origin()
+@auth_required
 def vaccines():
     if request.method == 'POST':
         new_vaccines = VaccineSchema().load(request.get_json())
@@ -47,9 +47,9 @@ def vaccines():
             print("Exception: ",e)
             return { "data": "Unable to read the data" }, 500
 
-@vaccines_api.route("/<id>", methods=['DELETE'])
-# @auth_required
+@vaccines_api.route("/api/v1/vaccines/<id>", methods=['DELETE'])
 @cross_origin()
+@auth_required
 def vaccines_delete():
     if request.method == 'DELETE':
         result = vaccine_collection.find_one_and_delete(
@@ -58,3 +58,8 @@ def vaccines_delete():
         if result["_id"] == ObjectId(id):
             return { "data": "Deleted successfully" }, 200
         return { "data": "Unable to delete the record" }, 500
+
+@vaccines_api.after_request
+def add_header(response):
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    return response
