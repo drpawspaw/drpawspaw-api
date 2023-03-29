@@ -7,14 +7,14 @@ from routes.auth.auth import auth_required
 from flask_cors import CORS, cross_origin
 import datetime
 
-pet_api = Blueprint("pets", __name__, url_prefix="/api/v1/pets")
+pet_api = Blueprint("pets", __name__)
 
 # define mongodb collection
 pet_collection = database_conn['pets']
 
-@pet_api.route('/', methods=['POST', 'GET', 'PUT', 'DELETE'])
-@auth_required
+@pet_api.route('/api/v1/pets', methods=['POST', 'GET', 'PUT', 'DELETE'])
 @cross_origin()
+@auth_required
 def retrieve_create_pets():
     # Create new pet profile
     if request.method == 'POST':
@@ -46,9 +46,9 @@ def retrieve_create_pets():
                 return jsonify(pets), 200
         return { "data": "Unable to retreive the records" }, 500
     
-@pet_api.route('/<id>', methods=['PUT', 'DELETE'])
-@auth_required
+@pet_api.route('/api/v1/pets/<id>', methods=['PUT', 'DELETE'])
 @cross_origin()
+@auth_required
 def update_delete(id):
     if request.method == 'PUT':
         req_update = PetSchema().load(request.get_json())
@@ -68,3 +68,8 @@ def update_delete(id):
         if result["_id"] == ObjectId(id):
             return { "data": "Deleted successfully" }, 200
         return { "data": "Unable to delete the record" }, 500
+
+@pet_api.after_request
+def add_header(response):
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    return response

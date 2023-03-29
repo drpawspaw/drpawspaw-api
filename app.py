@@ -26,7 +26,13 @@ app = Flask(__name__)
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 
 # handling cross-origin error
-CORS(app)
+CORS(user_api, support_credentials=True)
+CORS(auth_api, support_credentials=True)
+CORS(chatbot_api, support_credentials=True)
+CORS(pet_api, support_credentials=True)
+CORS(treatments_api, support_credentials=True)
+CORS(vaccines_api, support_credentials=True)
+CORS(static_api, support_credentials=True)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
 # define module routes
