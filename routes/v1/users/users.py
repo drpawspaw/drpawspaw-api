@@ -5,15 +5,15 @@ from routes import database_conn
 from flask_cors import CORS, cross_origin
 
 
-user_api = Blueprint("users", __name__, url_prefix="/api/v1/users")
+user_api = Blueprint("users", __name__)
 
 # define mongodb collection
 user_collection = database_conn['users']
 
 
-@user_api.route('/', methods=['GET', 'POST'])
-@auth_required
+@user_api.route('/api/v1/users', methods=['GET', 'POST'])
 @cross_origin()
+@auth_required
 def users():
     if request.method == 'POST':
         new_user = UserSchema().load(request.get_json())
@@ -32,3 +32,8 @@ def users():
                 user['_id'] = str(user['_id'])
                 current_users.append(user)
             return jsonify(current_users), 200
+        
+@user_api.after_request
+def add_header(response):
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    return response
