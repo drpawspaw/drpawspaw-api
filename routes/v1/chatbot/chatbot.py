@@ -11,10 +11,10 @@ import os
 # define mongodb collections
 treatment_collection = database_conn['treatments']
 
-chatbot_api = Blueprint("chatbot", __name__, url_prefix="/api/v1/chats")
+chatbot_api = Blueprint("chatbot", __name__)
 decision_request_intent = "projects/drpawpaw-20191157/agent/intents/11a8f35f-f36c-44ab-b6a0-fd9fb69e99e4"
 
-@chatbot_api.route("/", methods=['POST'])
+@chatbot_api.route("/api/v1/chats", methods=['POST'])
 @cross_origin()
 def dialogflow_detect_intent():
     req = ChatSchema().load(request.get_json())
@@ -59,3 +59,8 @@ def dialogflow_detect_intent():
             response['type'] = "PREDICTION"
 
     return jsonify(response), 200
+
+@chatbot_api.after_request
+def add_header(response):
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    return response
