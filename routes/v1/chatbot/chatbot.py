@@ -55,7 +55,7 @@ def dialogflow_detect_intent():
             # Get the treatment from treatments collection
             for treat in treatment_collection.find():
                 if treat['disease'].lower() == pred_resp['predicted_disease'].lower():
-                    response['treatments'] = "Here are the treatments for {disease}".format(disease=pred_resp['predicted_disease']) + treat['treatments'] + "(Source: {source})".format(source= treat['source']) + ")."
+                    response['treatments'] = "Here are the treatments for {disease}".format(disease=pred_resp['predicted_disease']) + " is " + treat['treatments'] + " " + " (Source: {source}).".format(source= treat['source'])
             response['type'] = "PREDICTION"
 
     return jsonify(response), 200
