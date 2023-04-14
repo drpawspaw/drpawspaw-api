@@ -3,7 +3,7 @@ from google.cloud import dialogflow
 from models.chat.handler import ChatSchema
 from flask_cors import CORS, cross_origin
 from rdflib import Graph, Namespace, Literal, RDF, URIRef
-# from linker.ned import entity_linker
+from linker.ned import entity_linker
 from routes import database_conn
 
 import os
@@ -33,28 +33,28 @@ def handle_chat(message, session):
     response['suggestions'] = [] # By default this will be an empty array, To keep the response entity constant,
     response['treatments'] = ""
 
-    # # If the intent recognize as "PREDICTION REQUEST", then pass the message to entity_linker for the prediction
-    # if result.query_result.intent.name == decision_request_intent:
-    #     pred_resp = entity_linker(result.query_result.query_text)
-    #     response['type'] = pred_resp['result_type']
+    # If the intent recognize as "PREDICTION REQUEST", then pass the message to entity_linker for the prediction
+    if result.query_result.intent.name == decision_request_intent:
+        pred_resp = entity_linker(result.query_result.query_text)
+        response['type'] = pred_resp['result_type']
 
-    #     # Limitation 
-    #     if pred_resp['result_type'] == 'LIMITATION':
-    #         response['type'] = "LIMITATION"
-    #         response['response'] = "Based on the information that we have, we are unable to determine what disease it is because we do not have the necessary expertise."
-    #     # Suggestion - In here, user will get list of symptoms for the prediction.
-    #     elif pred_resp['result_type'] == 'SUGGESTION':
-    #         response['type'] = "SUGGESTION"
-    #         response['response'] = "According to the information that has been provided to us, we are unable to identify the specific disease; however, it may be {diseases}. It would be helpful to perform a more accurate prediction if you could provide more symptoms out of the following symptoms.".format(diseases= ", ".join(pred_resp['predicted_disease']))
-    #         response['suggestions'] = pred_resp['symptom_suggestions']
-    #     # Prediction
-    #     else:
-    #         response['response'] = "We are able to predict the disease as {disease}".format(disease= pred_resp['predicted_disease'])
-    #         # Get the treatment from treatments collection
-    #         for treat in treatment_collection.find():
-    #             if treat['disease'].lower() == pred_resp['predicted_disease'].lower():
-    #                 response['treatments'] = "Here are the treatments for {disease}".format(disease=pred_resp['predicted_disease']) + treat['treatments'] + "(Source: {source})".format(source= treat['source']) + ")."
-    #         response['type'] = "PREDICTION"
+        # Limitation 
+        if pred_resp['result_type'] == 'LIMITATION':
+            response['type'] = "LIMITATION"
+            response['response'] = "Based on the information that we have, we are unable to determine what disease it is because we do not have the necessary expertise."
+        # Suggestion - In here, user will get list of symptoms for the prediction.
+        elif pred_resp['result_type'] == 'SUGGESTION':
+            response['type'] = "SUGGESTION"
+            response['response'] = "According to the information that has been provided to us, we are unable to identify the specific disease; however, it may be {diseases}. It would be helpful to perform a more accurate prediction if you could provide more symptoms out of the following symptoms.".format(diseases= ", ".join(pred_resp['predicted_disease']))
+            response['suggestions'] = pred_resp['symptom_suggestions']
+        # Prediction
+        else:
+            response['response'] = "We are able to predict the disease as {disease}".format(disease= pred_resp['predicted_disease'])
+            # Get the treatment from treatments collection
+            for treat in treatment_collection.find():
+                if treat['disease'].lower() == pred_resp['predicted_disease'].lower():
+                    response['treatments'] = "Here are the treatments for {disease}".format(disease=pred_resp['predicted_disease']) + treat['treatments'] + "(Source: {source})".format(source= treat['source']) + ")."
+            response['type'] = "PREDICTION"
     return response
 
 @chatbot_api.route("/api/v1/chats", methods=['POST'])
