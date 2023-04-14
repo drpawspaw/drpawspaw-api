@@ -14,18 +14,16 @@ treatment_collection = database_conn['treatments']
 chatbot_api = Blueprint("chatbot", __name__)
 decision_request_intent = "projects/drpawpaw-20191157/agent/intents/11a8f35f-f36c-44ab-b6a0-fd9fb69e99e4"
 
-@chatbot_api.route("/api/v1/chats", methods=['POST'])
-@cross_origin()
-def dialogflow_detect_intent():
-    req = ChatSchema().load(request.get_json())
+def handle_chat(message, session):
     session_client = dialogflow.SessionsClient()
-    session = session_client.session_path(os.getenv("DIALOGFLOW_PROJECT"), req['session'])
-    text_input = dialogflow.TextInput(text=req['message'], language_code='en-US')
+    session = session_client.session_path(os.getenv("DIALOGFLOW_PROJECT"), session)
+    text_input = dialogflow.TextInput(text=message, language_code='en-US')
     query_input = dialogflow.QueryInput(text=text_input)
 
     # Get the intent detection and generate output from the DialogFlow
     result = session_client.detect_intent(request={"session": session, "query_input": query_input})
 
+    # Create response object
     response = {}
     response['query'] = result.query_result.query_text
     response['response'] = result.query_result.fulfillment_text
@@ -55,9 +53,15 @@ def dialogflow_detect_intent():
             # Get the treatment from treatments collection
             for treat in treatment_collection.find():
                 if treat['disease'].lower() == pred_resp['predicted_disease'].lower():
-                    response['treatments'] = "Here are the treatments for {disease}".format(disease=pred_resp['predicted_disease']) + " is " + treat['treatments'] + " " + " (Source: {source}).".format(source= treat['source'])
+                    response['treatments'] = "Here are the treatments for {disease} ".format(disease=pred_resp['predicted_disease']) + " is " + treat['treatments'] + " " + " (Source: {source}).".format(source= treat['source'])
             response['type'] = "PREDICTION"
+    return response
 
+@chatbot_api.route("/api/v1/chats", methods=['POST'])
+@cross_origin()
+def dialogflow_detect_intent():
+    req = ChatSchema().load(request.get_json())
+    response = handle_chat(req['message'], req['session'])
     return jsonify(response), 200
 
 @chatbot_api.after_request
