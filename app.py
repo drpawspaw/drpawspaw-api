@@ -11,6 +11,7 @@ from routes.v1.pets.pets import pet_api
 from routes.v1.vaccine.vaccine import vaccines_api
 from routes.v1.treatment.treatment import treatments_api
 from routes.v1.static.static import static_api
+from routes.v1.integrations.whatsapp import whatsapp_hook
 
 from utils.email_sender.handler import email_scheduler
 from apscheduler.schedulers.background import BackgroundScheduler
@@ -33,6 +34,7 @@ CORS(pet_api, support_credentials=True)
 CORS(treatments_api, support_credentials=True)
 CORS(vaccines_api, support_credentials=True)
 CORS(static_api, support_credentials=True)
+CORS(whatsapp_hook, support_credentials=True)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
 # define module routes
@@ -43,6 +45,7 @@ app.register_blueprint(pet_api)
 app.register_blueprint(treatments_api)
 app.register_blueprint(vaccines_api)
 app.register_blueprint(static_api)
+app.register_blueprint(whatsapp_hook)
 
 # email scheduler
 scheduler = BackgroundScheduler(daemon=True)
