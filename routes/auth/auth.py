@@ -7,6 +7,7 @@ from routes import database_conn
 from functools import wraps
 import datetime as dt
 from flask_cors import CORS, cross_origin
+from bson.objectid import ObjectId
 
 import requests
 from dotenv import load_dotenv
@@ -156,7 +157,7 @@ def auth_signup():
             return reject_schema.dump(AuthReject("Unable to create new user record")), 500
         current_user = list(auth_col.find({ "email" : auth_signup['email'] }))[0]
         current_user['_id'] = str(current_user['_id'])
-        return jsonify(current_user)
+        return jsonify(current_user), 201
     reject_schema = AuthRejectSchema(many=False)
     return make_response(reject_schema.dump(AuthReject("User already exist or invalid request")), 409)
 
@@ -166,9 +167,22 @@ def auth_signup():
 def auth_login():
     auth_request = AuthRequestSchema().load(request.get_json())
     if auth_request['username'] != "" and is_password_valid(auth_request['username'], auth_request['password']):
-        access_token = grant_access_token(auth_request['username']),
-        refresh_token = grant_refresh_token(auth_request['username'])
-        auth_schema = AuthResponseSchema(many=False)
-        return jsonify(auth_schema.dump(AuthResponse(access_token, refresh_token)))
+        auth_res = {
+            "access_token": grant_access_token(auth_request['username']),
+            "refresh_token": grant_refresh_token(auth_request['username']),
+            "created_at": dt.datetime.now()
+        }
+        return jsonify(auth_res), 200
     reject_schema = AuthRejectSchema(many=False)
     return make_response(reject_schema.dump(AuthReject("Invalid username or password")), 403)
+
+@auth_api.route("/api/auth/deactivate/<id>", methods=['DELETE'])
+@cross_origin()
+def auth_delete(id):
+    if request.method == 'DELETE':
+        result = auth_col.find_one_and_delete(
+            {"_id" : ObjectId(id)}
+        )
+        if result["_id"] == ObjectId(id):
+            return { "data": "Deleted successfully" }, 200
+        return { "data": "Unable to delete the record" }, 500
