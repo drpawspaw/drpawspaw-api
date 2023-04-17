@@ -439,7 +439,7 @@ function filterTable(elem) { // eslint-disable-line no-unused-vars
 }
 </script>
     <h1>pytest_report.html</h1>
-    <p>Report generated on 17-Apr-2023 at 04:39:32 by <a href="https://pypi.python.org/pypi/pytest-html">pytest-html</a> v3.2.0</p>
+    <p>Report generated on 17-Apr-2023 at 07:53:13 by <a href="https://pypi.python.org/pypi/pytest-html">pytest-html</a> v3.2.0</p>
     <h2>Environment</h2>
     <table id="environment">
       <tr>
@@ -458,8 +458,8 @@ function filterTable(elem) { // eslint-disable-line no-unused-vars
         <td>Python</td>
         <td>3.10.4</td></tr></table>
     <h2>Summary</h2>
-    <p>4 tests ran in 2.11 seconds. </p>
-    <p class="filter" hidden="true">(Un)check the boxes to filter the results.</p><input checked="true" class="filter" data-test-result="passed" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="passed">4 passed</span>, <input checked="true" class="filter" data-test-result="skipped" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="skipped">0 skipped</span>, <input checked="true" class="filter" data-test-result="failed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="failed">0 failed</span>, <input checked="true" class="filter" data-test-result="error" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="error">0 errors</span>, <input checked="true" class="filter" data-test-result="xfailed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="xfailed">0 expected failures</span>, <input checked="true" class="filter" data-test-result="xpassed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="xpassed">0 unexpected passes</span>
+    <p>1 tests ran in 78.86 seconds. </p>
+    <p class="filter" hidden="true">(Un)check the boxes to filter the results.</p><input checked="true" class="filter" data-test-result="passed" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="passed">1 passed</span>, <input checked="true" class="filter" data-test-result="skipped" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="skipped">0 skipped</span>, <input checked="true" class="filter" data-test-result="failed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="failed">0 failed</span>, <input checked="true" class="filter" data-test-result="error" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="error">0 errors</span>, <input checked="true" class="filter" data-test-result="xfailed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="xfailed">0 expected failures</span>, <input checked="true" class="filter" data-test-result="xpassed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="xpassed">0 unexpected passes</span>
     <h2>Results</h2>
     <table id="results-table">
       <thead id="results-table-head">
@@ -473,41 +473,66 @@ function filterTable(elem) { // eslint-disable-line no-unused-vars
       <tbody class="passed results-table-row">
         <tr>
           <td class="col-result">Passed</td>
-          <td class="col-name">tests/api_test.py::test_signup</td>
-          <td class="col-duration">0.53</td>
+          <td class="col-name">tests/api_test.py::test_chat</td>
+          <td class="col-duration">30.29</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="4">
-            <div class="log"> ------------------------------Captured stdout call------------------------------ <br/>Running - POST /api/auth/signup
-<br/></div></td></tr></tbody>
-      <tbody class="passed results-table-row">
-        <tr>
-          <td class="col-result">Passed</td>
-          <td class="col-name">tests/api_test.py::test_login</td>
-          <td class="col-duration">0.06</td>
-          <td class="col-links"></td></tr>
-        <tr>
-          <td class="extra" colspan="4">
-            <div class="log"> ------------------------------Captured stdout call------------------------------ <br/>Running - POST /api/auth/login
-<br/></div></td></tr></tbody>
-      <tbody class="passed results-table-row">
-        <tr>
-          <td class="col-result">Passed</td>
-          <td class="col-name">tests/api_test.py::test_static_routes</td>
-          <td class="col-duration">0.12</td>
-          <td class="col-links"></td></tr>
-        <tr>
-          <td class="extra" colspan="4">
-            <div class="log"> ------------------------------Captured stdout call------------------------------ <br/>Running - GET /api/v1/static/vaccines
-Running - GET /api/v1/static/treatments
-<br/></div></td></tr></tbody>
-      <tbody class="passed results-table-row">
-        <tr>
-          <td class="col-result">Passed</td>
-          <td class="col-name">tests/api_test.py::test_cleanup</td>
-          <td class="col-duration">0.06</td>
-          <td class="col-links"></td></tr>
-        <tr>
-          <td class="extra" colspan="4">
-            <div class="log"> ------------------------------Captured stdout call------------------------------ <br/>Running - DELETE /api/auth/deactivate/&lt;id&gt;
+            <div class="log"> ------------------------------Captured stdout call------------------------------ <br/>Running - POST /api/v1/chats
+Running - POST /api/v1/chats - Test Case #1
+1/1 [==============================] - ETA: 0s1/1 [==============================] - 3s 3s/step
+1/1 [==============================] - ETA: 0s1/1 [==============================] - 0s 261ms/step
+1/1 [==============================] - ETA: 0s1/1 [==============================] - 0s 200ms/step
+1/1 [==============================] - ETA: 0s1/1 [==============================] - 0s 210ms/step
+1/1 [==============================] - ETA: 0s1/1 [==============================] - 0s 199ms/step
+1/1 [==============================] - ETA: 0s1/1 [==============================] - 0s 211ms/step
+1/1 [==============================] - ETA: 0s1/1 [==============================] - 0s 198ms/step
+1/1 [==============================] - ETA: 0s1/1 [==============================] - 0s 214ms/step
+1/1 [==============================] - ETA: 0s1/1 [==============================] - 0s 196ms/step
+1/1 [==============================] - ETA: 0s1/1 [==============================] - 0s 209ms/step
+Running - POST /api/v1/chats - Test Case #2
+1/1 [==============================] - ETA: 0s1/1 [==============================] - 0s 198ms/step
+1/1 [==============================] - ETA: 0s1/1 [==============================] - 0s 240ms/step
+1/1 [==============================] - ETA: 0s1/1 [==============================] - 0s 193ms/step
+1/1 [==============================] - ETA: 0s1/1 [==============================] - 0s 203ms/step
+1/1 [==============================] - ETA: 0s1/1 [==============================] - 0s 195ms/step
+1/1 [==============================] - ETA: 0s1/1 [==============================] - 0s 218ms/step
+1/1 [==============================] - ETA: 0s1/1 [==============================] - 0s 193ms/step
+1/1 [==============================] - ETA: 0s1/1 [==============================] - 0s 196ms/step
+1/1 [==============================] - ETA: 0s1/1 [==============================] - 0s 193ms/step
+1/1 [==============================] - ETA: 0s1/1 [==============================] - 0s 215ms/step
+prediction [(rdflib.term.Literal(&#x27;Babesiosis&#x27;, lang=&#x27;en&#x27;),), (rdflib.term.Literal(&#x27;Distempter&#x27;, lang=&#x27;en&#x27;),)]
+symptoms_uris [[&#x27;https://ontology.drpawspaw.com/ADSO0000000015&#x27;, &#x27;https://ontology.drpawspaw.com/ADSO0000000009&#x27;, &#x27;https://ontology.drpawspaw.com/ADSO0000000007&#x27;, &#x27;https://ontology.drpawspaw.com/ADSO0000000006&#x27;, &#x27;https://ontology.drpawspaw.com/ADSO0000000008&#x27;, &#x27;https://ontology.drpawspaw.com/ADSO0000000014&#x27;, &#x27;https://ontology.drpawspaw.com/ADSO0000000005&#x27;], [&#x27;https://ontology.drpawspaw.com/ADSO0000000031&#x27;, &#x27;https://ontology.drpawspaw.com/ADSO0000000017&#x27;, &#x27;https://ontology.drpawspaw.com/ADSO0000000030&#x27;, &#x27;https://ontology.drpawspaw.com/ADSO0000000032&#x27;, &#x27;https://ontology.drpawspaw.com/ADSO0000000039&#x27;, &#x27;https://ontology.drpawspaw.com/ADSO0000000033&#x27;, &#x27;https://ontology.drpawspaw.com/ADSO0000000009&#x27;, &#x27;https://ontology.drpawspaw.com/ADSO0000000038&#x27;, &#x27;https://ontology.drpawspaw.com/ADSO0000000036&#x27;, &#x27;https://ontology.drpawspaw.com/ADSO0000000037&#x27;, &#x27;https://ontology.drpawspaw.com/ADSO0000000040&#x27;, &#x27;https://ontology.drpawspaw.com/ADSO0000000007&#x27;, &#x27;https://ontology.drpawspaw.com/ADSO0000000023&#x27;, &#x27;https://ontology.drpawspaw.com/ADSO0000000026&#x27;, &#x27;https://ontology.drpawspaw.com/ADSO0000000028&#x27;, &#x27;https://ontology.drpawspaw.com/ADSO0000000008&#x27;, &#x27;https://ontology.drpawspaw.com/ADSO0000000005&#x27;, &#x27;https://ontology.drpawspaw.com/ADSO0000000034&#x27;, &#x27;https://ontology.drpawspaw.com/ADSO0000000027&#x27;, &#x27;https://ontology.drpawspaw.com/ADSO0000000093&#x27;]]
+symptom_suggestions [&#x27;Abnormal Pain&#x27;, &#x27;Diarrhea&#x27;, &#x27;coughing&#x27;, &#x27;Inflammation of Joints&#x27;, &#x27;Vomiting&#x27;, &#x27;Limb Swelling&#x27;, &#x27;Fever&#x27;, &#x27;Thickening of nose and foot pads&#x27;, &#x27;Lethargy&#x27;, &#x27;Loss of Appetite&#x27;, &#x27;Pneumonia&#x27;, &#x27;Paralysis&#x27;, &#x27;Skin Sores&#x27;, &#x27;Diarrhea&#x27;, &#x27;Involuntary Eye Movements&#x27;, &#x27;Excessive Saliva&#x27;, &#x27;Head Tilt&#x27;, &#x27;Seizures&#x27;, &#x27;coughing&#x27;, &#x27;Pain&#x27;, &#x27;Nasal Discharge&#x27;, &#x27;Sneezing&#x27;, &#x27;Vomiting&#x27;, &#x27;Fever&#x27;, &#x27;Muscle Twitching&#x27;, &#x27;Eye Discharge&#x27;, &#x27;Breathing Difficulties&#x27;]
+Running - POST /api/v1/chats - Test Case #3
+1/1 [==============================] - ETA: 0s1/1 [==============================] - 0s 196ms/step
+1/1 [==============================] - ETA: 0s1/1 [==============================] - 0s 194ms/step
+1/1 [==============================] - ETA: 0s1/1 [==============================] - 0s 201ms/step
+1/1 [==============================] - ETA: 0s1/1 [==============================] - 0s 254ms/step
+1/1 [==============================] - ETA: 0s1/1 [==============================] - 0s 197ms/step
+<br/> ------------------------------Captured stderr call------------------------------ <br/>Truncation was not explicitly activated but `max_length` is provided a specific value, please use `truncation=True` to explicitly truncate examples to max length. Defaulting to &#x27;longest_first&#x27; truncation strategy. If you encode pairs of sequences (GLUE-style) with the tokenizer you can select this strategy more precisely by providing a specific strategy to `truncation`.
+Truncation was not explicitly activated but `max_length` is provided a specific value, please use `truncation=True` to explicitly truncate examples to max length. Defaulting to &#x27;longest_first&#x27; truncation strategy. If you encode pairs of sequences (GLUE-style) with the tokenizer you can select this strategy more precisely by providing a specific strategy to `truncation`.
+Truncation was not explicitly activated but `max_length` is provided a specific value, please use `truncation=True` to explicitly truncate examples to max length. Defaulting to &#x27;longest_first&#x27; truncation strategy. If you encode pairs of sequences (GLUE-style) with the tokenizer you can select this strategy more precisely by providing a specific strategy to `truncation`.
+Truncation was not explicitly activated but `max_length` is provided a specific value, please use `truncation=True` to explicitly truncate examples to max length. Defaulting to &#x27;longest_first&#x27; truncation strategy. If you encode pairs of sequences (GLUE-style) with the tokenizer you can select this strategy more precisely by providing a specific strategy to `truncation`.
+Truncation was not explicitly activated but `max_length` is provided a specific value, please use `truncation=True` to explicitly truncate examples to max length. Defaulting to &#x27;longest_first&#x27; truncation strategy. If you encode pairs of sequences (GLUE-style) with the tokenizer you can select this strategy more precisely by providing a specific strategy to `truncation`.
+Truncation was not explicitly activated but `max_length` is provided a specific value, please use `truncation=True` to explicitly truncate examples to max length. Defaulting to &#x27;longest_first&#x27; truncation strategy. If you encode pairs of sequences (GLUE-style) with the tokenizer you can select this strategy more precisely by providing a specific strategy to `truncation`.
+Truncation was not explicitly activated but `max_length` is provided a specific value, please use `truncation=True` to explicitly truncate examples to max length. Defaulting to &#x27;longest_first&#x27; truncation strategy. If you encode pairs of sequences (GLUE-style) with the tokenizer you can select this strategy more precisely by providing a specific strategy to `truncation`.
+Truncation was not explicitly activated but `max_length` is provided a specific value, please use `truncation=True` to explicitly truncate examples to max length. Defaulting to &#x27;longest_first&#x27; truncation strategy. If you encode pairs of sequences (GLUE-style) with the tokenizer you can select this strategy more precisely by providing a specific strategy to `truncation`.
+Truncation was not explicitly activated but `max_length` is provided a specific value, please use `truncation=True` to explicitly truncate examples to max length. Defaulting to &#x27;longest_first&#x27; truncation strategy. If you encode pairs of sequences (GLUE-style) with the tokenizer you can select this strategy more precisely by providing a specific strategy to `truncation`.
+Truncation was not explicitly activated but `max_length` is provided a specific value, please use `truncation=True` to explicitly truncate examples to max length. Defaulting to &#x27;longest_first&#x27; truncation strategy. If you encode pairs of sequences (GLUE-style) with the tokenizer you can select this strategy more precisely by providing a specific strategy to `truncation`.
+Truncation was not explicitly activated but `max_length` is provided a specific value, please use `truncation=True` to explicitly truncate examples to max length. Defaulting to &#x27;longest_first&#x27; truncation strategy. If you encode pairs of sequences (GLUE-style) with the tokenizer you can select this strategy more precisely by providing a specific strategy to `truncation`.
+Truncation was not explicitly activated but `max_length` is provided a specific value, please use `truncation=True` to explicitly truncate examples to max length. Defaulting to &#x27;longest_first&#x27; truncation strategy. If you encode pairs of sequences (GLUE-style) with the tokenizer you can select this strategy more precisely by providing a specific strategy to `truncation`.
+Truncation was not explicitly activated but `max_length` is provided a specific value, please use `truncation=True` to explicitly truncate examples to max length. Defaulting to &#x27;longest_first&#x27; truncation strategy. If you encode pairs of sequences (GLUE-style) with the tokenizer you can select this strategy more precisely by providing a specific strategy to `truncation`.
+Truncation was not explicitly activated but `max_length` is provided a specific value, please use `truncation=True` to explicitly truncate examples to max length. Defaulting to &#x27;longest_first&#x27; truncation strategy. If you encode pairs of sequences (GLUE-style) with the tokenizer you can select this strategy more precisely by providing a specific strategy to `truncation`.
+Truncation was not explicitly activated but `max_length` is provided a specific value, please use `truncation=True` to explicitly truncate examples to max length. Defaulting to &#x27;longest_first&#x27; truncation strategy. If you encode pairs of sequences (GLUE-style) with the tokenizer you can select this strategy more precisely by providing a specific strategy to `truncation`.
+Truncation was not explicitly activated but `max_length` is provided a specific value, please use `truncation=True` to explicitly truncate examples to max length. Defaulting to &#x27;longest_first&#x27; truncation strategy. If you encode pairs of sequences (GLUE-style) with the tokenizer you can select this strategy more precisely by providing a specific strategy to `truncation`.
+Truncation was not explicitly activated but `max_length` is provided a specific value, please use `truncation=True` to explicitly truncate examples to max length. Defaulting to &#x27;longest_first&#x27; truncation strategy. If you encode pairs of sequences (GLUE-style) with the tokenizer you can select this strategy more precisely by providing a specific strategy to `truncation`.
+Truncation was not explicitly activated but `max_length` is provided a specific value, please use `truncation=True` to explicitly truncate examples to max length. Defaulting to &#x27;longest_first&#x27; truncation strategy. If you encode pairs of sequences (GLUE-style) with the tokenizer you can select this strategy more precisely by providing a specific strategy to `truncation`.
+Truncation was not explicitly activated but `max_length` is provided a specific value, please use `truncation=True` to explicitly truncate examples to max length. Defaulting to &#x27;longest_first&#x27; truncation strategy. If you encode pairs of sequences (GLUE-style) with the tokenizer you can select this strategy more precisely by providing a specific strategy to `truncation`.
+Truncation was not explicitly activated but `max_length` is provided a specific value, please use `truncation=True` to explicitly truncate examples to max length. Defaulting to &#x27;longest_first&#x27; truncation strategy. If you encode pairs of sequences (GLUE-style) with the tokenizer you can select this strategy more precisely by providing a specific strategy to `truncation`.
+Truncation was not explicitly activated but `max_length` is provided a specific value, please use `truncation=True` to explicitly truncate examples to max length. Defaulting to &#x27;longest_first&#x27; truncation strategy. If you encode pairs of sequences (GLUE-style) with the tokenizer you can select this strategy more precisely by providing a specific strategy to `truncation`.
+Truncation was not explicitly activated but `max_length` is provided a specific value, please use `truncation=True` to explicitly truncate examples to max length. Defaulting to &#x27;longest_first&#x27; truncation strategy. If you encode pairs of sequences (GLUE-style) with the tokenizer you can select this strategy more precisely by providing a specific strategy to `truncation`.
+Truncation was not explicitly activated but `max_length` is provided a specific value, please use `truncation=True` to explicitly truncate examples to max length. Defaulting to &#x27;longest_first&#x27; truncation strategy. If you encode pairs of sequences (GLUE-style) with the tokenizer you can select this strategy more precisely by providing a specific strategy to `truncation`.
+Truncation was not explicitly activated but `max_length` is provided a specific value, please use `truncation=True` to explicitly truncate examples to max length. Defaulting to &#x27;longest_first&#x27; truncation strategy. If you encode pairs of sequences (GLUE-style) with the tokenizer you can select this strategy more precisely by providing a specific strategy to `truncation`.
+Truncation was not explicitly activated but `max_length` is provided a specific value, please use `truncation=True` to explicitly truncate examples to max length. Defaulting to &#x27;longest_first&#x27; truncation strategy. If you encode pairs of sequences (GLUE-style) with the tokenizer you can select this strategy more precisely by providing a specific strategy to `truncation`.
 <br/></div></td></tr></tbody></table></body></html>
